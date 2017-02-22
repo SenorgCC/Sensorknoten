@@ -20,3 +20,7 @@ while True:
     print('Hostname: ', data["HostName"], 'Wert: ', data["Wert"], 'Grenzwert: ', data["Grenzwert"])
     #s.sendto("1".encode('utf-8'), (host, port))
     c.close()
+
+#
+#
+#
