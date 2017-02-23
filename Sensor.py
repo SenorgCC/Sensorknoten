@@ -9,28 +9,65 @@ import json
 
 class Sensor:
     # Dictionary für die Zuweisung von ID und Sensorname
-    Sensorliste = {0: "Temperatursensor",
-                   1: "Flammensensor",
-                   2: "Microphon",
-                   3: "Erschuetterungssensor",
-                   4: "DHT11",
-                   5: "Lichtschranke"}
+    #Sensorliste = {1: "Temperatursensor",
+    #              2: "Luftfeuchtigkeit",
+    #              3: "Flammensensor",
+    #              4: "Lichtschranke",
+    #              5: "Mikrofon",
+    #              6: "Lichtsensor"
+    #              7: "Schocksensor"}
 
-    def __init__(self, Sensor_ID, Digital_PIN):
-        self.Sensor_ID = Sensor_ID
-        self.Sensor_Name = self.Sensorliste[Sensor_ID]
+    def __init__(self, SEN_ID, Analog_PIN, Digital_PIN):
+        self.SEN_ID = SEN_ID
+        self.Sensorname = socket.gethostname()
+        self.Messwert=""
+        self.Status=0
+        self.Analog_PIN = Analog_PIN
         self.Digital_PIN = Digital_PIN
 
-    def init_Messung(self):
+
+    def init_messung(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         delayTime = 0.5
         ADS1115 = 0x01
-        gain = 4095
-        sps = 250
-        adc_channel = 0
-        adc =ADS1x15(ic=ADS1115)
+        self.gain = 4095
+        self.sps = 250
+        self.adc_channel = self.Analog_PIN
+        self.adc =ADS1x15(ic=ADS1115)
         GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down = GPIO.PUD_OFF)
 
-    #def FlammensensorMessung(self)
+    # Auf der Leitung liegt immer eine gewisse spannung, im Bereich von 300 - 400 mV, diese muss ausgegrenzt werden
+    def sensorcheck_analog(self):
+        if self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps) > 450:
+            return True
+        else:
+            return False
 
+    def flammensensor(self):
+        if self.SensorCheck_Analog():
+            self.Status = 1
+
+            Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+            Digital_Wert = GPIO.input(self.Digital_PIN)
+
+            if Digital_Wert == 1 and Analog_Wert < 3250 :
+
+
+
+
+        else:
+            self.Status = 0
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": 0}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
+    def temperatur(self):
+    def luftfeuchtigkeit(self):
+    def mikrofon(self):
+    def lichtsensor(self):
+    def schocksensor(self):
+    def senden(self,json_data):
