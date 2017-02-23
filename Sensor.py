@@ -52,9 +52,26 @@ class Sensor:
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
             if Digital_Wert == 1 and Analog_Wert < 3250 :
-
-
-
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": str(Digital_Wert)}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+                return
+            #TODO: Genauen Ruhespannungwert des Flammensensors nachschauen! 3300 ist nicht genau
+            elif Digital_Wert == 1 and Analog_Wert == 3300 :
+                self.Status = 2
+                #TODO: Abstimmung welche Daten bei defektem Sensor gesendet werden sollen
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": 0}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+                return
+            else:
+                return
 
         else:
             self.Status = 0
@@ -64,10 +81,36 @@ class Sensor:
                                   "Messwert": 0}
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
+            return
 
     def temperatur(self):
+
     def luftfeuchtigkeit(self):
+
     def mikrofon(self):
+        #TODO: mikrofon funktioniert eigentlich wie ein flammensensor ! Anschauen Wann er Daten senden soll
+        self.flammensensor()
     def lichtsensor(self):
+    def lichtschranke(self):
     def schocksensor(self):
+        #TODO: Erste idee muss net stimmen! Überprüfen!
+        GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback = verarbeitungsFkt, bouncetime=100)
+        def verarbeitungsFkt():
+            self.Status = 1
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": "TRUE"}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
+
     def senden(self,json_data):
+        s = socket.socket()
+        host = '192.168.178.1'
+        #TODO: Anstendigen Port aussuchen !
+        port = 12345
+        s.connect((host, port))
+        s.sendto(json_data.encode('utf-8'), (host, port))
+        #TODO: Überlegen, ob bei Flammensensor ACK angebracht wäre
+        s.close()
