@@ -1,4 +1,6 @@
 from Adafruit_ADS1x15 import ADS1x15
+import Adafruit_DHT
+
 from time import sleep
 
 import time, signal, sys, os, math
@@ -81,6 +83,27 @@ class Sensor:
             return
 
     def temperatur(self):
+        #humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
+        temperatur = Adafruit_DHT.read_retry(11, 4)[1]
+        # Die Messtemperatur muss zwischen 0 und 50°C liegen, sonst ist der Sensor defekt
+
+        if 0< temperatur <=50:
+            self.Status = 1
+            self.Messwert = str(temperatur)
+        #TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
+        elif temperatur == 'None':
+            self.Status = 0
+            self.Messwert = 0
+        else:
+            self.Status = 2
+            self.Messwert = 0
+
+        sensor_information = {"Name": self.Sensorname,
+                              "SEN_ID": self.SEN_ID,
+                              "Status": self.Status,
+                              "Messwert": self.Messwert}
+        json_data = json.dumps(sensor_information)
+        self.senden(json_data)
 
     def luftfeuchtigkeit(self):
 
