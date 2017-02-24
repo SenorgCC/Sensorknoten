@@ -84,7 +84,7 @@ class Sensor:
 
     def temperatur(self):
         #humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
-        temperatur = Adafruit_DHT.read_retry(11, 4)[1]
+        temperatur = Adafruit_DHT.read_retry(11, self.Digital_PIN)[1]
         # Die Messtemperatur muss zwischen 0 und 50°C liegen, sonst ist der Sensor defekt
 
         if 0< temperatur <=50:
@@ -106,12 +106,103 @@ class Sensor:
         self.senden(json_data)
 
     def luftfeuchtigkeit(self):
+        humidity = Adafruit_DHT.read_retry(11, self.Digital_PIN)[0]
+        # Die Messtemperatur muss zwischen 0 und 50°C liegen, sonst ist der Sensor defekt
+
+        #TODO: Messbereich Feuchtigkeitssensor rausfinden
+        if 0 < humidity <= 95:
+            self.Status = 1
+            self.Messwert = str(humidity)
+        # TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
+        elif humidity == 'None':
+            self.Status = 0
+            self.Messwert = 0
+        else:
+            self.Status = 2
+            self.Messwert = 0
+
+        sensor_information = {"Name": self.Sensorname,
+                              "SEN_ID": self.SEN_ID,
+                              "Status": self.Status,
+                              "Messwert": self.Messwert}
+        json_data = json.dumps(sensor_information)
+        self.senden(json_data)
 
     def mikrofon(self):
         #TODO: mikrofon funktioniert eigentlich wie ein flammensensor ! Anschauen Wann er Daten senden soll
-        self.flammensensor()
+        #TODO: Grenzwerte rausfinden!
+        if self.SensorCheck_Analog():
+            self.Status = 1
+
+            Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+            Digital_Wert = GPIO.input(self.Digital_PIN)
+
+            if Digital_Wert == 1 and Analog_Wert < 3250:
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": str(Digital_Wert)}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+                return
+            # TODO: Genauen Ruhespannungwert des Mikrofons nachschauen! 3300 ist nicht genau
+            elif Digital_Wert == 1 and Analog_Wert == 3300:
+                self.Status = 2
+                # TODO: Abstimmung welche Daten bei defektem Sensor gesendet werden sollen
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": 0}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+                return
+            else:
+                return
+
+        else:
+            self.Status = 0
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": 0}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+            return
+
     def lichtsensor(self):
+        #TODO: Schaltwerte für Lichtsensor rausfinden, bzw festlegen (Erste Idee: 300 mV)
+        #TODO: Festlegen, wann der Sensor Defekt ist (Erste Idee: 3,3V)
+        analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+        if analog_wert < 300 :
+            self.Messwert = "True"
+            self.Status = 1
+        elif analog_wert < 3300 :
+            self.Messwert = "False"
+            self.Status = 1
+        else
+            self.Messwert = 0
+            self.Status = 2
+
+        sensor_information = {"Name": self.Sensorname,
+                              "SEN_ID": self.SEN_ID,
+                              "Status": self.Status,
+                              "Messwert": self.Messwert}
+        json_data = json.dumps(sensor_information)
+        self.senden(json_data)
+
     def lichtschranke(self):
+        # TODO: Erste idee muss net stimmen! Überprüfen!
+        GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback=verarbeitungsFkt, bouncetime=100)
+
+        def verarbeitungsFkt():
+            self.Status = 1
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": "TRUE"}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
     def schocksensor(self):
         #TODO: Erste idee muss net stimmen! Überprüfen!
         GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback = verarbeitungsFkt, bouncetime=100)
@@ -123,7 +214,6 @@ class Sensor:
                                   "Messwert": "TRUE"}
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
-
 
     def senden(self,json_data):
         s = socket.socket()
