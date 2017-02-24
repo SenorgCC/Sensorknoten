@@ -9,7 +9,7 @@ import json
 
 class Sensor:
     # Dictionary für die Zuweisung von ID und Sensorname
-    #Sensorliste = {1: "Temperatursensor",
+    #Sensorliste = {1: "Temperatursensor", +
     #              2: "Luftfeuchtigkeit",
     #              3: "Flammensensor",
     #              4: "Lichtschranke",
@@ -24,9 +24,6 @@ class Sensor:
         self.Status=0
         self.Analog_PIN = Analog_PIN
         self.Digital_PIN = Digital_PIN
-
-
-    def init_messung(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         delayTime = 0.5
