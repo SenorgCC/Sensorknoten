@@ -8,3 +8,5 @@ sensor1 = Sensor(3, 0, 18)
 #Ausführen des Sensors
 sensor1.flammensensor()
 
+#
+
