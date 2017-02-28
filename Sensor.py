@@ -11,7 +11,7 @@ import json
 
 class Sensor:
     # Dictionary fuer die Zuweisung von ID und Sensorname
-    #Sensorliste = {1: "Temperatursensor", +
+    #Sensorliste = {1: "Temperatursensor",
     #              2: "Luftfeuchtigkeit",
     #              3: "Flammensensor",
     #              4: "Lichtschranke",
