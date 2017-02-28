@@ -167,10 +167,10 @@ class Sensor:
             return
 
     def lichtsensor(self):
-        #TODO: Schaltwerte fuer Lichtsensor rausfinden, bzw festlegen (Erste Idee: 300 mV)
+        # Schwellwert von 1,5V ist in einem dunklen Zimmer mit rel. schwacher Beleuchtung!
         #TODO: Festlegen, wann der Sensor Defekt ist (Erste Idee: 3,3V)
         analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
-        if analog_wert < 300 :
+        if analog_wert < 1500 :
             self.Messwert = "True"
             self.Status = 1
         elif analog_wert < 3300 :
