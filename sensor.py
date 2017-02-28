@@ -86,11 +86,11 @@ class Sensor:
         temperatur = Adafruit_DHT.read_retry(11, self.Digital_PIN)[1]
         # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
 
-        if 0< temperatur <=50:
+        if 0 < temperatur <= 50:
             self.Status = 1
             self.Messwert = str(temperatur)
         #TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
-        elif temperatur == 'None':
+        elif not temperatur:
             self.Status = 0
             self.Messwert = 0
         else:
@@ -113,7 +113,7 @@ class Sensor:
             self.Status = 1
             self.Messwert = str(humidity)
         # TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
-        elif humidity == 'None':
+        elif not humidity:
             self.Status = 0
             self.Messwert = 0
         else:
