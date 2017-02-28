@@ -44,7 +44,7 @@ class Sensor:
             return False
 
     def flammensensor(self):
-        if self.SensorCheck_Analog():
+        if self.sensorcheck_analog():
             self.Status = 1
 
             Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
@@ -61,7 +61,6 @@ class Sensor:
             #TODO: Genauen Ruhespannungwert des Flammensensors nachschauen! 3300 ist nicht genau
             elif Digital_Wert == 1 and Analog_Wert == 3300 :
                 self.Status = 2
-                #TODO: Abstimmung welche Daten bei defektem Sensor gesendet werden sollen
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -129,9 +128,8 @@ class Sensor:
         self.senden(json_data)
 
     def mikrofon(self):
-        #TODO: mikrofon funktioniert eigentlich wie ein flammensensor ! Anschauen Wann er Daten senden soll
         #TODO: Grenzwerte rausfinden!
-        if self.SensorCheck_Analog():
+        if self.sensorcheck_analog():
             self.Status = 1
 
             Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
@@ -148,7 +146,6 @@ class Sensor:
             # TODO: Genauen Ruhespannungwert des Mikrofons nachschauen! 3300 ist nicht genau
             elif Digital_Wert == 1 and Analog_Wert == 3300:
                 self.Status = 2
-                # TODO: Abstimmung welche Daten bei defektem Sensor gesendet werden sollen
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
