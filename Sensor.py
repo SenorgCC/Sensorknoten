@@ -85,7 +85,7 @@ class Sensor:
     def temperatur(self):
         #humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
         temperatur = Adafruit_DHT.read_retry(11, self.Digital_PIN)[1]
-        # Die Messtemperatur muss zwischen 0 und 50°C liegen, sonst ist der Sensor defekt
+        # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
 
         if 0< temperatur <=50:
             self.Status = 1
@@ -107,7 +107,7 @@ class Sensor:
 
     def luftfeuchtigkeit(self):
         humidity = Adafruit_DHT.read_retry(11, self.Digital_PIN)[0]
-        # Die Messtemperatur muss zwischen 0 und 50°C liegen, sonst ist der Sensor defekt
+        # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
 
         #TODO: Messbereich Feuchtigkeitssensor rausfinden
         if 0 < humidity <= 95:
@@ -179,7 +179,7 @@ class Sensor:
         elif analog_wert < 3300 :
             self.Messwert = "False"
             self.Status = 1
-        else
+        else:
             self.Messwert = 0
             self.Status = 2
 
@@ -215,7 +215,7 @@ class Sensor:
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
 
-    def senden(self,json_data):
+    def senden(self, json_data):
         s = socket.socket()
         host = '192.168.178.1'
         #TODO: Anstendigen Port aussuchen !
@@ -224,7 +224,3 @@ class Sensor:
         s.sendto(json_data.encode('utf-8'), (host, port))
         #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
-
-        #
-        #
-        #
