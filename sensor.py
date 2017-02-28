@@ -36,6 +36,16 @@ class Sensor:
         self.adc =ADS1x15(ic=ADS1115)
         GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down = GPIO.PUD_OFF)
 
+
+    def eventhandler(self, null):
+            self.Status = 1
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": "TRUE"}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
     # Auf der Leitung liegt immer eine gewisse spannung, im Bereich von 300 - 400 mV, diese muss ausgegrenzt werden
     def sensorcheck_analog(self):
         if self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps) > 450:
@@ -59,7 +69,7 @@ class Sensor:
                 self.senden(json_data)
                 return
             #TODO: Genauen Ruhespannungwert des Flammensensors nachschauen! 3300 ist nicht genau
-            elif Digital_Wert == 1 and Analog_Wert == 3300 :
+            elif Digital_Wert == 1 and Analog_Wert == 3300:
                 self.Status = 2
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -186,29 +196,26 @@ class Sensor:
         self.senden(json_data)
 
     def lichtschranke(self):
-        # TODO: Erste idee muss net stimmen! Ueberpruefen!
-        GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback=verarbeitungsFkt, bouncetime=100)
+        #Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
 
-        def verarbeitungsFkt():
-            self.Status = 1
-            sensor_information = {"Name": self.Sensorname,
-                                  "SEN_ID": self.SEN_ID,
-                                  "Status": self.Status,
-                                  "Messwert": "TRUE"}
-            json_data = json.dumps(sensor_information)
-            self.senden(json_data)
+    #TODO: Vor der Fertigstellung diese Loop entfernen! Notlösung zum testen!
+        try:
+            while True:
+                        time.sleep(1)
+        except KeyboardInterrupt:
+            GPIO.cleanup()
 
     def schocksensor(self):
-        #TODO: Erste idee muss net stimmen! ueberpruefen!
-        GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback = verarbeitungsFkt, bouncetime=100)
-        def verarbeitungsFkt():
-            self.Status = 1
-            sensor_information = {"Name": self.Sensorname,
-                                  "SEN_ID": self.SEN_ID,
-                                  "Status": self.Status,
-                                  "Messwert": "TRUE"}
-            json_data = json.dumps(sensor_information)
-            self.senden(json_data)
+        # Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
+
+    # TODO: Vor der Fertigstellung diese Loop entfernen! Notlösung zum testen!
+        try:
+            while True:
+                        time.sleep(1)
+        except KeyboardInterrupt:
+            GPIO.cleanup()
 
     def senden(self, json_data):
         s = socket.socket()
@@ -219,3 +226,4 @@ class Sensor:
         s.sendto(json_data.encode('utf-8'), (host, port))
         #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
+        return
