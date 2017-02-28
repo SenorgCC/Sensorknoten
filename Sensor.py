@@ -224,3 +224,5 @@ class Sensor:
         s.sendto(json_data.encode('utf-8'), (host, port))
         #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
+
+        #
