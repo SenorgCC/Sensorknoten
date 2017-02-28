@@ -10,7 +10,7 @@ import socket
 import json
 
 class Sensor:
-    # Dictionary für die Zuweisung von ID und Sensorname
+    # Dictionary fuer die Zuweisung von ID und Sensorname
     #Sensorliste = {1: "Temperatursensor", +
     #              2: "Luftfeuchtigkeit",
     #              3: "Flammensensor",
@@ -170,7 +170,7 @@ class Sensor:
             return
 
     def lichtsensor(self):
-        #TODO: Schaltwerte für Lichtsensor rausfinden, bzw festlegen (Erste Idee: 300 mV)
+        #TODO: Schaltwerte fuer Lichtsensor rausfinden, bzw festlegen (Erste Idee: 300 mV)
         #TODO: Festlegen, wann der Sensor Defekt ist (Erste Idee: 3,3V)
         analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
         if analog_wert < 300 :
@@ -191,7 +191,7 @@ class Sensor:
         self.senden(json_data)
 
     def lichtschranke(self):
-        # TODO: Erste idee muss net stimmen! Überprüfen!
+        # TODO: Erste idee muss net stimmen! Ueberpruefen!
         GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback=verarbeitungsFkt, bouncetime=100)
 
         def verarbeitungsFkt():
@@ -204,7 +204,7 @@ class Sensor:
             self.senden(json_data)
 
     def schocksensor(self):
-        #TODO: Erste idee muss net stimmen! Überprüfen!
+        #TODO: Erste idee muss net stimmen! ueberpruefen!
         GPIO.add_event_detect(self.GPIO_PIN, GPIO.FALLING, callback = verarbeitungsFkt, bouncetime=100)
         def verarbeitungsFkt():
             self.Status = 1
@@ -222,5 +222,5 @@ class Sensor:
         port = 12345
         s.connect((host, port))
         s.sendto(json_data.encode('utf-8'), (host, port))
-        #TODO: Überlegen, ob bei Flammensensor ACK angebracht wäre
+        #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
