@@ -83,13 +83,14 @@ class Sensor:
 
     def temperatur(self):
         #humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
+        #Read_Retry versucht innerhalb von 15 Sekunden Messungen durchzufuehren und gibt das Ergebnis aus
+        #als ein array, wo humidity, temp angegeben werden
         temperatur = Adafruit_DHT.read_retry(11, self.Digital_PIN)[1]
         # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
 
         if 0 < temperatur <= 50:
             self.Status = 1
             self.Messwert = str(temperatur)
-        #TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
         elif not temperatur:
             self.Status = 0
             self.Messwert = 0
@@ -107,12 +108,9 @@ class Sensor:
     def luftfeuchtigkeit(self):
         humidity = Adafruit_DHT.read_retry(11, self.Digital_PIN)[0]
         # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
-
-        #TODO: Messbereich Feuchtigkeitssensor rausfinden
         if 0 < humidity <= 95:
             self.Status = 1
             self.Messwert = str(humidity)
-        # TODO: Testen welcher Wert bei nicht angeschlossenem DHT kommt
         elif not humidity:
             self.Status = 0
             self.Messwert = 0
