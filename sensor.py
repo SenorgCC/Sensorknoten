@@ -50,10 +50,7 @@ class Sensor:
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
 
-    # Auf der Leitung liegt immer eine gewisse spannung, im Bereich von 300 - 400 mV, diese muss ausgegrenzt werden
-    #TODO:! Funktioniert nicht !
     def sensorcheck_analog(self):
-        #if self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps) > 450:
         self.bus.write_byte(self.address, self.Analog_PIN)
         if self.bus.read_byte(self.address) > 10:
             return True
@@ -63,8 +60,6 @@ class Sensor:
     def flammensensor(self):
         if self.sensorcheck_analog():
             self.Status = 1
-
-           # Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
             self.bus.write_byte(self.address, self.Analog_PIN)
             Analog_Wert = self.bus.read_byte(self.address)
 
@@ -78,7 +73,6 @@ class Sensor:
                 json_data = json.dumps(sensor_information)
                 self.senden(json_data)
                 return
-            #TODO: Genauen Ruhespannungwert des Flammensensors nachschauen! 3300 ist nicht genau
             elif Digital_Wert == 1 and Analog_Wert == 255:
                 self.Status = 2
                 sensor_information = {"Name": self.Sensorname,
@@ -148,8 +142,6 @@ class Sensor:
     def mikrofon(self):
         if self.sensorcheck_analog():
             self.Status = 1
-
-            #analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
             self.bus.write_byte(self.address, self.Analog_PIN)
             analog_wert = self.bus.read_byte(self.address)
 
@@ -187,13 +179,12 @@ class Sensor:
             return
 
     def lichtsensor(self):
-        #analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
         self.bus.write_byte(self.address, self.Analog_PIN)
         analog_wert = self.bus.read_byte(self.address)
-        if analog_wert <= 50 :
+        if analog_wert <= 50:
             self.Messwert = "True"
             self.Status = 1
-        elif analog_wert > 51 :
+        elif analog_wert > 51:
             self.Messwert = "False"
             self.Status = 1
         else:
@@ -211,23 +202,10 @@ class Sensor:
         #Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
         GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
 
-    #TODO: Vor der Fertigstellung diese Loop entfernen! Notlösung zum testen!
-        try:
-            while True:
-                        time.sleep(1)
-        except KeyboardInterrupt:
-            GPIO.cleanup()
 
     def schocksensor(self):
         # Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
         GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
-
-    # TODO: Vor der Fertigstellung diese Loop entfernen! Notlösung zum testen!
-        try:
-            while True:
-                        time.sleep(1)
-        except KeyboardInterrupt:
-            GPIO.cleanup()
 
     def senden(self, json_data):
         s = socket.socket()
@@ -238,4 +216,3 @@ class Sensor:
         s.sendto(json_data.encode('utf-8'), (host, port))
         #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
-        return
