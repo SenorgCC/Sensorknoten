@@ -5,7 +5,7 @@ from time import sleep
 
 import time, signal, sys, os, math
 import RPi.GPIO as GPIO
-
+import smbus
 import socket
 import json
 
@@ -29,12 +29,16 @@ class Sensor:
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         delayTime = 0.5
-        ADS1115 = 0x01
-        self.gain = 4095
-        self.sps = 250
-        self.adc_channel = self.Analog_PIN
-        self.adc =ADS1x15(ic=ADS1115)
+        #ADS1115 = 0x01
+        #self.gain = 4095
+        #self.sps = 250
+        #self.adc_channel = self.Analog_PIN
+        #self.adc =ADS1x15(ic=ADS1115)
         GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down = GPIO.PUD_OFF)
+        # Neu Umsetzung mit dem pcf8591 AD-Wandler
+        self.bus = smbus.SMBus(1)
+        self.address = 0x48
+
 
 
     def eventhandler(self, null):
@@ -47,8 +51,11 @@ class Sensor:
             self.senden(json_data)
 
     # Auf der Leitung liegt immer eine gewisse spannung, im Bereich von 300 - 400 mV, diese muss ausgegrenzt werden
+    #TODO:! Funktioniert nicht !
     def sensorcheck_analog(self):
-        if self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps) > 450:
+        #if self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps) > 450:
+        self.bus.write_byte(self.address, self.Analog_PIN)
+        if self.bus.read_byte(self.address) > 10:
             return True
         else:
             return False
@@ -57,10 +64,13 @@ class Sensor:
         if self.sensorcheck_analog():
             self.Status = 1
 
-            Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+           # Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+            self.bus.write_byte(self.address, self.Analog_PIN)
+            Analog_Wert = self.bus.read_byte(self.address)
+
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
-            if Digital_Wert == 1 and Analog_Wert < 3250 :
+            if Digital_Wert == 1 and Analog_Wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -69,7 +79,7 @@ class Sensor:
                 self.senden(json_data)
                 return
             #TODO: Genauen Ruhespannungwert des Flammensensors nachschauen! 3300 ist nicht genau
-            elif Digital_Wert == 1 and Analog_Wert == 3300:
+            elif Digital_Wert == 1 and Analog_Wert == 255:
                 self.Status = 2
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -136,14 +146,16 @@ class Sensor:
         self.senden(json_data)
 
     def mikrofon(self):
-        #TODO: Grenzwerte rausfinden!
         if self.sensorcheck_analog():
             self.Status = 1
 
-            Analog_Wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+            #analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+            self.bus.write_byte(self.address, self.Analog_PIN)
+            analog_wert = self.bus.read_byte(self.address)
+
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
-            if Digital_Wert == 1 and Analog_Wert < 3250:
+            if Digital_Wert == 1 and analog_wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -151,8 +163,8 @@ class Sensor:
                 json_data = json.dumps(sensor_information)
                 self.senden(json_data)
                 return
-            # TODO: Genauen Ruhespannungwert des Mikrofons nachschauen! 3300 ist nicht genau
-            elif Digital_Wert == 1 and Analog_Wert == 3300:
+
+            elif Digital_Wert == 1 and analog_wert == 255:
                 self.Status = 2
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -175,13 +187,13 @@ class Sensor:
             return
 
     def lichtsensor(self):
-        # Schwellwert von 1,5V ist in einem dunklen Zimmer mit rel. schwacher Beleuchtung!
-        #TODO: Festlegen, wann der Sensor Defekt ist (Erste Idee: 3,3V)
-        analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
-        if analog_wert < 1500 :
+        #analog_wert = self.adc.readADCSingleEnded(self.adc_channel, self.gain, self.sps)
+        self.bus.write_byte(self.address, self.Analog_PIN)
+        analog_wert = self.bus.read_byte(self.address)
+        if analog_wert <= 50 :
             self.Messwert = "True"
             self.Status = 1
-        elif analog_wert < 3300 :
+        elif analog_wert > 51 :
             self.Messwert = "False"
             self.Status = 1
         else:
