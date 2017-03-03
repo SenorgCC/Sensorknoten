@@ -203,11 +203,11 @@ class Sensor:
 
     def lichtschranke(self):
         #Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
-        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=self.eventhandler, bouncetime=100)
 
     def schocksensor(self):
         # Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
-        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=self.eventhandler, bouncetime=100)
 
     def senden(self, json_data):
         s = socket.socket()
