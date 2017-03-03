@@ -43,9 +43,7 @@
 <!-- Ende Navbar-->
 
 
-<?php
-echo "createTable()";
-?>
+
 
 
 </body>
