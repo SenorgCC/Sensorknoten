@@ -39,7 +39,14 @@ class Sensor:
         self.bus = smbus.SMBus(1)
         self.address = 0x48
 
+    def cleanup(self):
+        GPIO.cleanup()
 
+    def add_event_flammensensor(self):
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.BOTH, callback=self.flammen_mikro_event, bouncetime=100)
+
+    def add_event_mikrofon(self):
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.BOTH, callback=self.flammen_mikro_event, bouncetime=100)
 
     def eventhandler(self, null):
             self.Status = 1
@@ -47,6 +54,37 @@ class Sensor:
                                   "SEN_ID": self.SEN_ID,
                                   "Status": self.Status,
                                   "Messwert": "TRUE"}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
+    def flammen_mikro_event(self, null):
+        self.Status = 1
+        self.bus.write_byte(self.address, self.Analog_PIN)
+        Analog_Wert = self.bus.read_byte(self.address)
+        Digital_Wert = GPIO.input(self.Digital_PIN)
+        if Digital_Wert == 1:
+            if Analog_Wert < 200:
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": "TRUE"}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+                return
+            elif Analog_Wert == 255:
+                self.Status = 2
+                sensor_information = {"Name": self.Sensorname,
+                                      "SEN_ID": self.SEN_ID,
+                                      "Status": self.Status,
+                                      "Messwert": "0"}
+                json_data = json.dumps(sensor_information)
+                self.senden(json_data)
+        else:
+            self.Status = 1
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": "FALSE"}
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
 
@@ -62,14 +100,13 @@ class Sensor:
             self.Status = 1
             self.bus.write_byte(self.address, self.Analog_PIN)
             Analog_Wert = self.bus.read_byte(self.address)
-
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
             if Digital_Wert == 1 and Analog_Wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
-                                      "Messwert": str(Digital_Wert)}
+                                      "Messwert": "TRUE"}
                 json_data = json.dumps(sensor_information)
                 self.senden(json_data)
                 return
@@ -151,7 +188,7 @@ class Sensor:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
-                                      "Messwert": str(Digital_Wert)}
+                                      "Messwert": "TRUE"}
                 json_data = json.dumps(sensor_information)
                 self.senden(json_data)
                 return
