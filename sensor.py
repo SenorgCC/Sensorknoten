@@ -78,7 +78,7 @@ class Sensor:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
-                                      "Messwert": 0}
+                                      "Messwert": "0"}
                 json_data = json.dumps(sensor_information)
                 self.senden(json_data)
                 return
@@ -90,7 +90,7 @@ class Sensor:
             sensor_information = {"Name": self.Sensorname,
                                   "SEN_ID": self.SEN_ID,
                                   "Status": self.Status,
-                                  "Messwert": 0}
+                                  "Messwert": "0"}
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
             return
@@ -115,7 +115,7 @@ class Sensor:
         sensor_information = {"Name": self.Sensorname,
                               "SEN_ID": self.SEN_ID,
                               "Status": self.Status,
-                              "Messwert": self.Messwert}
+                              "Messwert": str(self.Messwert)}
         json_data = json.dumps(sensor_information)
         self.senden(json_data)
 
@@ -135,7 +135,7 @@ class Sensor:
         sensor_information = {"Name": self.Sensorname,
                               "SEN_ID": self.SEN_ID,
                               "Status": self.Status,
-                              "Messwert": self.Messwert}
+                              "Messwert": str(self.Messwert)}
         json_data = json.dumps(sensor_information)
         self.senden(json_data)
 
@@ -179,33 +179,35 @@ class Sensor:
             return
 
     def lichtsensor(self):
-        self.bus.write_byte(self.address, self.Analog_PIN)
-        analog_wert = self.bus.read_byte(self.address)
-        if analog_wert <= 50:
-            self.Messwert = "True"
-            self.Status = 1
-        elif analog_wert > 51:
-            self.Messwert = "False"
-            self.Status = 1
-        else:
-            self.Messwert = 0
-            self.Status = 2
+        if self.sensorcheck_analog():
+            self.bus.write_byte(self.address, self.Analog_PIN)
+            analog_wert = self.bus.read_byte(self.address)
+            if analog_wert <= 50:
+                self.Messwert = "True"
+                self.Status = 1
+            elif analog_wert > 51:
+                self.Messwert = "False"
+                self.Status = 1
+            else:
+                self.Messwert = 0
+                self.Status = 2
 
-        sensor_information = {"Name": self.Sensorname,
-                              "SEN_ID": self.SEN_ID,
-                              "Status": self.Status,
-                              "Messwert": self.Messwert}
-        json_data = json.dumps(sensor_information)
-        self.senden(json_data)
+            sensor_information = {"Name": self.Sensorname,
+                                "SEN_ID": self.SEN_ID,
+                                "Status": self.Status,
+                                "Messwert": self.Messwert}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+        else:
+            return
 
     def lichtschranke(self):
         #Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
-        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
-
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=self.eventhandler, bouncetime=100)
 
     def schocksensor(self):
         # Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
-        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=eventhandler, bouncetime=100)
+        GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=self.eventhandler, bouncetime=100)
 
     def senden(self, json_data):
         s = socket.socket()
@@ -214,5 +216,4 @@ class Sensor:
         port = 12345
         s.connect((host, port))
         s.sendto(json_data.encode('utf-8'), (host, port))
-        #TODO: ueberlegen, ob bei Flammensensor ACK angebracht waere
         s.close()
