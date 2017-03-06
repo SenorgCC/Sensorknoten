@@ -13,8 +13,8 @@ A2 = 0xA2
 A3 = 0xA3
 # Inialisierung der Sensoren
 # DHT11 - Luftfeuchtigkeit und Temperatur
-sensor1 = Sensor(1, None, 26)
-sensor2 = Sensor(2, None, 26)
+sensor1 = Sensor(1, None, 25)
+sensor2 = Sensor(2, None, 25)
 
 # Init Mikrofon KY-038
 sensor3 = Sensor(3, A0, 18)
