@@ -11,12 +11,6 @@
 </head>
 <body>
 
-<?php
-if(isset($errorMessage)) {
-    echo $errorMessage;
-}
-?>
-
 <div class="container">
     <form class="form-signin" method="post" action="?login=1">
         <h2 class="form-signin-heading">Sensorüberwachung</h2>
@@ -28,6 +22,11 @@ if(isset($errorMessage)) {
             Sign in
         </button>
     </form>
+    <?php
+    if(isset($errorMessage)) {
+        echo "<label>",$errorMessage,"</label>";
+    }
+    ?>
 </div>
 
 
