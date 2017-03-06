@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <title>Übersicht</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/uebersicht.css">
-    <script src="sources/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="css/übersicht.css">
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/uebersicht.js"></script>
+    <script src="sources/jquery-3.1.1.min.js"></script>
+    <script src="scripts/Übersicht.js"></script>
 
 </head>
-<body>
-
+<body onload="javascript:start()">
 <!-- Beginn Navbar-->
 <nav class="navbar navbar-default" id="navbar">
     <div class="container-fluid">
@@ -41,10 +40,44 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!-- Ende Navbar-->
-
-
-
-
-
+<h2 class="sub-header"> Sensor 01 </h2>
+<div class = "table-responsive">
+    <table class = "table table-striped">
+        <thead>
+        <tr>
+            <th>Temperatur</th>
+            <th>Luftfeuchtigkeit</th>
+            <th>Flammsensor</th>
+            <th>Lichtschranke</th>
+            <th>Mikrofon</th>
+            <th>Lichtsensor</th>
+            <th>Schocksensor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>26 °</td>
+            <td>5 %</td>
+            <td>AUS</td>
+            <td>AUS</td>
+            <td>AUS</td>
+            <td>AUS</td>
+            <td>AN</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<?php
+@$mysqli = new mysqli('10.35.249.48', 'k35630_test', 'test1234', 'k35630_testdata');
+if ($mysqli->connect_errno) {
+    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
+        Server ist hops gegangen. Wegen '.$mysqli -> connect_error;
+}
+$query = "SELECT KN_ID FROM Sensorknoten";
+$result = $mysqli -> query ($query);
+while ($row = $result->fetch_assoc()) {
+    print_r("HALLO");
+}
+?>
 </body>
 </html>
