@@ -25,3 +25,11 @@ function createTable(row, col, id) {
     myTable.setAttribute("ID", id);
     return myTable;
 }
+
+$(document).ready(function(){
+    // Neuladen alle 1000ms -> 1s
+    $("#datentabelle").load("scripts/Sensordaten.php");
+    var refreshId = setInterval(function() {
+        $("#datentabelle").load('scripts/Sensordaten.php')
+    }, 1000);
+});
