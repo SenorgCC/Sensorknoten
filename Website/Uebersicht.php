@@ -56,6 +56,8 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!-- Ende Navbar-->
-<?php include("scripts/Sensordaten.php"); ?>
+<div id="datentabelle"
+    <?php include("scripts/Sensordaten.php"); ?>
+</div>
 </body>
 </html>
