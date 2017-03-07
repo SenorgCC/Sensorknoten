@@ -5,18 +5,53 @@ if ($mysqli->connect_errno) {
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
 }
 $query = "SELECT Knotennamen FROM Sensorknoten";
-$check= "";
 $result = $mysqli->query($query);
 while ($row = $result->fetch_assoc()) {
-    $check = $row['Knotennamen'];
-
+    $Knotennamen = $row['Knotennamen'];
     $Temperatur = "Nicht Angeschlossen";
-    $Luftfeuchtigkeit="Nicht Angeschlossen";
+    $Luftfeuchtigkeit = "Nicht Angeschlossen";
     $Flammsensor = "Nicht Angeschlossen";
     $Lichtschranke = "Nicht Angeschlossen";
-    $Mikrofon ="Nicht Angeschlossen";
+    $Mikrofon = "Nicht Angeschlossen";
     $Lichtsensor = "Nicht Angeschlossen";
     $Schocksensor = "Nicht Angeschlossen";
+    $timestamp = array();
+    $select = "SELECT *
+FROM(
+    SELECT Messwert, Timestamp, M . SEN_ID, Sensorname FROM Sensorknoten SK
+        INNER JOIN Sensorknoten_Messwerte AS SM ON(SK . KN_ID = SM . KN_ID)
+         INNER JOIN Messwerte AS M ON(SM . MESS_ID = M . MESS_ID)
+    INNER JOIN Sensoren S ON(M . SEN_ID = S . SEN_ID) 
+    WHERE Knotennamen = '$Knotennamen'
+    ORDER BY Timestamp desc
+) AS sub
+GROUP BY Sensorname
+ORDER BY SEN_ID";
+    $result2 = $mysqli->query($select);
+    while ($row2 = $result2->fetch_object()) {
+        if ($row2->SEN_ID == '1') {
+            $Temperatur = $row2->Messwert."°C";
+            $timestamp[1] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '2') {
+            $Luftfeuchtigkeit = $row2->Messwert."%";
+            $timestamp[2] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '3') {
+            $Flammsensor = $row2->Messwert;
+            $timestamp[3] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '4') {
+            $Lichtschranke = $row2->Messwert;
+            $timestamp[4] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '5') {
+            $Mikrofon = $row2->Messwert;
+            $timestamp[5] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '6') {
+            $Lichtsensor = $row2->Messwert;
+            $timestamp[6] = $row2->Timestamp;
+        } else if ($row2->SEN_ID == '7') {
+            $Schocksensor = $row2->Messwert;
+            $timestamp[7] = $row2->Timestamp;
+        }
+    }
     echo "<h2 class=\"sub-header\"> " . $row['Knotennamen'] . "</h2>";
     echo "<div class=\"table-responsive\">";
     echo "    <table class=\"table table-striped\">";
@@ -33,33 +68,17 @@ while ($row = $result->fetch_assoc()) {
     echo "        </thead>";
     echo "        <tbody>";
     echo "        <tr>";
-    echo "            <td>".$Temperatur."°C</td>";
-    echo "            <td>".$Luftfeuchtigkeit."%</td>";
-    echo "            <td>".$Flammsensor."</td>";
-    echo "            <td>".$Lichtschranke."</td>";
-    echo "            <td>".$Mikrofon."</td>";
-    echo "            <td>".$Lichtsensor."</td>";
-    echo "            <td>".$Schocksensor."</td>";
+    echo "            <td>" . $Temperatur . "</td>";
+    echo "            <td>" . $Luftfeuchtigkeit . "</td>";
+    echo "            <td>" . $Flammsensor . "</td>";
+    echo "            <td>" . $Lichtschranke . "</td>";
+    echo "            <td>" . $Mikrofon . "</td>";
+    echo "            <td>" . $Lichtsensor . "</td>";
+    echo "            <td>" . $Schocksensor . "</td>";
     echo "        </tr>";
     echo "        </tbody>";
     echo "    </table>";
     echo "</div>";
 }
-$select = "SELECT *
-FROM(
-    SELECT Messwert, Timestamp, M . SEN_ID, Sensorname FROM Sensorknoten SK
-        INNER JOIN Sensorknoten_Messwerte AS SM ON(SK . KN_ID = SM . KN_ID)
-         INNER JOIN Messwerte AS M ON(SM . MESS_ID = M . MESS_ID)
-    INNER JOIN Sensoren S ON(M . SEN_ID = S . SEN_ID) 
-    WHERE Knotennamen = '$check'
-    ORDER BY Timestamp desc
-) AS sub
-GROUP BY Sensorname
-ORDER BY SEN_ID";
-$result2 = $mysqli->query($select);
-//print_r($result2);
-while ($row2 = $result2->fetch_object()) {
-    print_r($row2);
-    print_r($row2->Messwert);
-}
+
 ?>
