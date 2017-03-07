@@ -19,7 +19,10 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Password">
         <button id="submitbtn" class="btn btn-lg btn-primary btn-block" type="submit">
-            Sign in
+            Einloggen
+        </button>
+        <button class="btn btn-lg btn-primary btn-block" formaction="Register.php">
+            Registrieren
         </button>
     </form>
     <?php
