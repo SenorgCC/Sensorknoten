@@ -9,6 +9,7 @@ $check= "";
 $result = $mysqli->query($query);
 while ($row = $result->fetch_assoc()) {
     $check = $row['Knotennamen'];
+
     $Temperatur = "Nicht Angeschlossen";
     $Luftfeuchtigkeit="Nicht Angeschlossen";
     $Flammsensor = "Nicht Angeschlossen";

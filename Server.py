@@ -31,10 +31,10 @@ while True:
 			KN_ID = cur.fetchone()
 			cur.execute("""UPDATE Sensorknoten SET IPv4_Adresse = %s WHERE Knotennamen = %s""", (adresse, Name))
 			cur.execute("""INSERT INTO Messwerte (SEN_ID, Messwert)VALUES(%s, %s)""", (SEN_ID, Wert))
-			cur.execute("""SELECT MESS_ID FROM Messwerte WHERE SEN_ID = %s AND Messwert = %s""", (SEN_ID, Wert))
-			MessID = cur.fetchone()
+			#cur.execute("""SELECT MESS_ID FROM Messwerte WHERE SEN_ID = %s AND Messwert = %s""", (SEN_ID, Wert))
+			MessID = cur.insert_id()
 			cur.execute("""INSERT INTO Sensorknoten_Messwerte (KN_ID, MESS_ID)VALUES(%s, %s)""", (KN_ID, MessID))
-		else:
+		elif row_count == 0:
 			cur.execute("""INSERT INTO Sensorknoten (Knotennamen, IPv4_Adresse)VALUES(%s, %s)""", (Name, adresse))
 			row_count = cur.execute("""SELECT KN_ID FROM Sensorknoten WHERE Knotennamen = %s""", (Name, ))
 			KN_ID = cur.fetchone()
