@@ -11,11 +11,10 @@ while ($row = $result->fetch_assoc()) {
     $Temperatur = "Nicht Angeschlossen";
     $Luftfeuchtigkeit = "Nicht Angeschlossen";
     $Flammsensor = "Nicht Angeschlossen";
-    $Lichtschranke = "Nicht Angeschlossen";
-    $Mikrofon = "Nicht Angeschlossen";
     $Lichtsensor = "Nicht Angeschlossen";
+    $Mikrofon = "Nicht Angeschlossen";
+    $Lichtschranke = "Nicht Angeschlossen";
     $Schocksensor = "Nicht Angeschlossen";
-    $timestamp = array();
     $select = "SELECT *
 FROM(
     SELECT Messwert, Timestamp, M . SEN_ID, Sensorname FROM Sensorknoten SK
@@ -29,11 +28,13 @@ GROUP BY Sensorname
 ORDER BY SEN_ID";
     $result2 = $mysqli->query($select);
     while ($row2 = $result2->fetch_object()) {
+
+        $timestamp = array();
         if ($row2->SEN_ID == '1') {
-            $Temperatur = $row2->Messwert."°C";
+            $Temperatur = $row2->Messwert . "°C";
             $timestamp[1] = $row2->Timestamp;
         } else if ($row2->SEN_ID == '2') {
-            $Luftfeuchtigkeit = $row2->Messwert."%";
+            $Luftfeuchtigkeit = $row2->Messwert . "%";
             $timestamp[2] = $row2->Timestamp;
         } else if ($row2->SEN_ID == '3') {
             $Flammsensor = $row2->Messwert;
@@ -68,13 +69,13 @@ ORDER BY SEN_ID";
     echo "        </thead>";
     echo "        <tbody>";
     echo "        <tr>";
-    echo "            <td>" . $Temperatur . "</td>";
-    echo "            <td>" . $Luftfeuchtigkeit . "</td>";
-    echo "            <td>" . $Flammsensor . "</td>";
-    echo "            <td>" . $Lichtschranke . "</td>";
-    echo "            <td>" . $Mikrofon . "</td>";
-    echo "            <td>" . $Lichtsensor . "</td>";
-    echo "            <td>" . $Schocksensor . "</td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[1]'>" . $Temperatur . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[2]'>" . $Luftfeuchtigkeit . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[3]'>" . $Flammsensor . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[4]'>" . $Lichtschranke . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[5]'>" . $Mikrofon . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[6]'>" . $Lichtsensor . "</span></td>";
+    echo "            <td><span data-toggle=\"tooltip\" data-placement=\"auto bottom\" title='$timestamp[7]'>" . $Schocksensor . "</span></td>";
     echo "        </tr>";
     echo "        </tbody>";
     echo "    </table>";
