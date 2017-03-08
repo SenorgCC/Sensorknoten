@@ -1,6 +1,7 @@
 <?php
 session_start();
 session_destroy();
+$logout=true;
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,10 @@ session_destroy();
 
 <div class="form-signin">
     <?php
-        echo "<h2 class=form-signin-heading>Logout erfolgreich</h2>"
+    if ($logout){
+        echo "<h2 class=form-signin-heading>Logout erfolgreich</h2>";
+    } else
+        echo "<h2 class=form-signin-heading>Logout nicht erfolgreich</h2>";
     ?>
 <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zurück zum Login</a>
 </div>
