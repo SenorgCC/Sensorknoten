@@ -18,7 +18,6 @@ echo "Hallo User: ".$userid;
     <meta charset="UTF-8">
     <title>Übersicht</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/uebersicht.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/uebersichtscript.js"></script>

@@ -17,7 +17,7 @@ echo "Hallo User: ".$userid;
     <meta charset="UTF-8">
     <title>Übersicht</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/uebersicht.css">
+    <link rel="stylesheet" href="css/impressum.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
 
@@ -54,6 +54,10 @@ echo "Hallo User: ".$userid;
     </div><!-- /.container-fluid -->
 </nav>
 
+<div id="impressuminhalt">
+Diese Seite wurde erstellt von:<br>
+Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
+</div>
 
 </body>
 </html>
