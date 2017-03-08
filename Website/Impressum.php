@@ -1,17 +1,3 @@
-<?php
-//session_start();
-//if(!isset($_SESSION['userid'])) {
-//    die('Bitte zuerst <a href="login.php">einloggen</a>');
-//}
-
-//Abfrage der Nutzer ID vom Login
-//$userid = $_SESSION['userid'];
-
-//echo "Hallo User: ".$userid;
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -21,7 +7,6 @@
     <link rel="stylesheet" href="css/uebersicht.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/uebersichtscript.js"></script>
 
 </head>
 <body>
@@ -45,19 +30,17 @@
         <!-- Linke Seite der Navbar -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="Uebersicht.php">Übersicht <span class="sr-only">(current)</span></a></li>
+                <li><a href="Uebersicht.php">Übersicht</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="Impressum.php">Impressum</a></li>
+                <li class="active"><a href="Impressum.php">Impressum <span class="sr-only">(current)</span></a></li>
                 <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<!-- Ende Navbar-->
-<div id="datentabelle"
-    <?php include("scripts/Sensordaten.php"); ?>
-</div>
+
+
 </body>
 </html>
