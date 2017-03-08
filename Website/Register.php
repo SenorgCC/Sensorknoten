@@ -8,7 +8,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');*/
     <meta charset="UTF-8">
     <title>Registrierung</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
 </head>
 <body>

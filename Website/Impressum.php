@@ -16,8 +16,8 @@ echo "Hallo User: ".$userid;
 <head>
     <meta charset="UTF-8">
     <title>Übersicht</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/impressum.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
 
