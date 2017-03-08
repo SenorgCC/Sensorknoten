@@ -19,6 +19,8 @@ echo "Hallo User: ".$userid;
     <title>Übersicht</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
+    <script src="sources/flot/jquery.flot.js"></script>
+    <script src="sources/flot/jquery.flot.time.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/uebersichtscript.js"></script>
 
@@ -57,6 +59,8 @@ echo "Hallo User: ".$userid;
 <!-- Ende Navbar-->
 <div id="datentabelle"
     <?php include("scripts/Sensordaten.php"); ?>
+</div>
+<div id='placeholder' style="width:600px;height:300px" >
 </div>
 </body>
 </html>
