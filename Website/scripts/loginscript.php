@@ -1,7 +1,7 @@
 <?php
-session_start();
+/**session_start();
 $pdo = new PDO('mysql:host=localhost;dbname=php-einfach', 'root', '');
-
+*/
 if(isset($_GET['login'])) {
     $username = $_POST['username'];
     $passwort = $_POST['passwort'];
@@ -13,7 +13,7 @@ if(isset($_GET['login'])) {
     //Überprüfung des Passworts
     if ($user !== false && password_verify($passwort, $user['passwort'])) {
         $_SESSION['userid'] = $user['id'];
-        die('Login erfolgreich. Weiter zu <a href="Uebersicht.php">internen Bereich</a>');
+        die('Login erfolgreich. Weiter zu <a href="../Uebersicht.php">internen Bereich</a>');
     } else {
         $errorMessage = "Benutzername oder Passwort war ungültig<br>";
     }
