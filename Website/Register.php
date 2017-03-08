@@ -1,6 +1,6 @@
 <?php
-session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+/**session_start();
+$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');*/
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -8,7 +8,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');
     <meta charset="UTF-8">
     <title>Registrierung</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-
+    <link rel="stylesheet" href="css/login.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
 </head>
 <body>
@@ -55,7 +55,7 @@ if(isset($_GET['register'])) {
         $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_hash));
 
         if($result) {
-            echo 'Du wurdest erfolgreich registriert. <a href="login.php">Zum Login</a>';
+            echo 'Du wurdest erfolgreich registriert. <a href="Login.php">Zum Login</a>';
             $showFormular = false;
         } else {
             echo 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';
@@ -66,17 +66,20 @@ if(isset($_GET['register'])) {
 if($showFormular) {
     ?>
 
-    <form action="?register=1" method="post">
-        E-Mail:<br>
-        <input type="email" size="40" maxlength="250" name="email"><br><br>
+    <form class="form-signin" action="?register=1" method="post">
+        <h2 class="form-signin-heading">Registrierung</h2>
 
-        Dein Passwort:<br>
-        <input type="password" size="40"  maxlength="250" name="passwort"><br>
+        <label for="username" class="sr-only">Name</label>
+        <input id="username" type="name" name="username" class="form-control" placeholder="Name" autofocus>
 
-        Passwort wiederholen:<br>
-        <input type="password" size="40" maxlength="250" name="passwort2"><br><br>
+        <label for="inputPassword" class="sr-only">Passwort</label>
+        <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Passwort">
 
-        <input type="submit" value="Abschicken">
+        <label for="inputPassword2" class="sr-only">Passwort wiederholen</label>
+        <input type="password" name="passwort2" id="inputPassword2" class="form-control" placeholder="Passwort wiederholen">
+
+        <label for="registrierenbutton" class="sr-only">Registrieren</label>
+        <input id="registrierenbutton" class="btn btn-lg btn-primary btn-block" type="submit" value="Registrieren">
     </form>
 
     <?php

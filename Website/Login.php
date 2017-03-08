@@ -14,17 +14,19 @@
 <div class="container">
     <form class="form-signin" method="post" action="?login=1">
         <h2 class="form-signin-heading">Sensorüberwachung</h2>
-        <label class="sr-only">Name</label>
+
+        <label for="inputname" class="sr-only">Name</label>
         <input type="name" name="username" id="inputname" class="form-control" placeholder="Name" autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
+
+        <label for="inputPassword" class="sr-only">Passwort</label>
         <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Password">
+
         <button id="submitbtn" class="btn btn-lg btn-primary btn-block" type="submit">
             Einloggen
         </button>
-        <button class="btn btn-lg btn-primary btn-block" formaction="Register.php">
-            Registrieren
-        </button>
+        <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
     </form>
+
     <?php
     if(isset($errorMessage)) {
         echo "<label>",$errorMessage,"</label>";
