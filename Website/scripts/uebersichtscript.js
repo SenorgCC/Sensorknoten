@@ -1,5 +1,5 @@
 
-function start() {
+/*function start() {
     node = document.getElementById("tabelle1");
     node.parentNode.insertBefore(createTable(3, 7), node );
 }
@@ -24,12 +24,12 @@ function createTable(row, col, id) {
     myTable.appendChild(mytablebody);
     myTable.setAttribute("ID", id);
     return myTable;
-}
+}*/
 
 $(document).ready(function(){
-    // Neuladen alle 1000ms -> 1s
+    // Neuladen alle 5000ms -> 5s
     $("#datentabelle").load("scripts/Sensordaten.php");
     var refreshId = setInterval(function() {
         $("#datentabelle").load('scripts/Sensordaten.php')
-    }, 1000);
+    }, 5000);
 });
