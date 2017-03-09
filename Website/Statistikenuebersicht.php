@@ -75,7 +75,7 @@
         <button type="button" class="btn btn-default">Auswahl</button>
 
         </br>
-        <div id='placeholder' style="width:600px;height:300px" >^M
+        <div id='placeholder' style="width:600px;height:300px" >
         </div>^M
         </div>
 
