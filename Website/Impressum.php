@@ -15,7 +15,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Übersicht</title>
+    <title>Impressum</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
@@ -57,7 +57,11 @@
 </nav>
 <div class="container">
     <div id="impressuminhalt">
-        Diese Seite wurde erstellt von:<br>
+        <img src="Bilder/dhbw-logo.png" alt="Logo DHBW"> <br>
+        Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen Hochschule Baden-Württemberg erstellt.<br>
+        Es wurden keine anderen als in der Dokumentation genannten Quellen verwendet.<br>
+
+
         Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
     </div>
 </div>
