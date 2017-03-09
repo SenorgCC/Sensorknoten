@@ -1,14 +1,14 @@
 <?php
 /**session_start();
-if(!isset($_SESSION['userid'])) {
-   die('Bitte zuerst <a href="login.php">einloggen</a>');
-}
-
-//Abfrage der Nutzer ID vom Login
-$userid = $_SESSION['userid'];
-
-echo "Hallo User: ".$userid;
-*/
+ * if(!isset($_SESSION['userid'])) {
+ * die('Bitte zuerst <a href="login.php">einloggen</a>');
+ * }
+ *
+ * //Abfrage der Nutzer ID vom Login
+ * $userid = $_SESSION['userid'];
+ *
+ * echo "Hallo User: ".$userid;
+ */
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +44,8 @@ echo "Hallo User: ".$userid;
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht</a></li>
+                <li><a href="Statistikenuebersicht.php">Statistik</a></li>
+                <li><a href="Kamera.php">Webcam</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -53,10 +55,11 @@ echo "Hallo User: ".$userid;
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
-<div id="impressuminhalt">
-Diese Seite wurde erstellt von:<br>
-Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
+<div class="container">
+    <div id="impressuminhalt">
+        Diese Seite wurde erstellt von:<br>
+        Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
+    </div>
 </div>
 
 </body>

@@ -32,7 +32,10 @@
         <!-- Linke Seite der Navbar -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="Uebersicht.php">Übersicht <span class="sr-only">(current)</span></a></li>
+                <li><a href="Uebersicht.php">Übersicht </a></li>
+                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a href="Kamera.php">Webcam</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
