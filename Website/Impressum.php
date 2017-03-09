@@ -11,18 +11,15 @@ echo "Hallo User: ".$userid;
 */
 ?>
 
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Übersicht</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
-    <script src="sources/flot/jquery.flot.js"></script>
-    <script src="sources/flot/jquery.flot.time.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/uebersichtscript.js"></script>
 
 </head>
 <body>
@@ -46,21 +43,21 @@ echo "Hallo User: ".$userid;
         <!-- Linke Seite der Navbar -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="Uebersicht.php">Übersicht <span class="sr-only">(current)</span></a></li>
+                <li><a href="Uebersicht.php">Übersicht</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="Impressum.php">Impressum</a></li>
+                <li class="active"><a href="Impressum.php">Impressum <span class="sr-only">(current)</span></a></li>
                 <li><a href="Logout.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-<!-- Ende Navbar-->
-<div id="datentabelle"
-    <?php include("scripts/Sensordaten.php"); ?>
+
+<div id="impressuminhalt">
+Diese Seite wurde erstellt von:<br>
+Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
 </div>
-<div id='placeholder' style="width:600px;height:300px" >
-</div>
+
 </body>
 </html>

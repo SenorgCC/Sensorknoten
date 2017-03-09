@@ -220,10 +220,10 @@ class Sensor:
             self.bus.write_byte(self.address, self.Analog_PIN)
             analog_wert = self.bus.read_byte(self.address)
             if analog_wert <= 50:
-                self.Messwert = "True"
+                self.Messwert = "TRUE"
                 self.Status = 1
             elif analog_wert > 51:
-                self.Messwert = "False"
+                self.Messwert = "FALSE"
                 self.Status = 1
             else:
                 self.Messwert = 0
