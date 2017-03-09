@@ -1,6 +1,6 @@
 <?php
 echo "HALLO";
-@$mysqli = new mysqli('10.35.249.48', 'k35630_test', 'test1234', 'k35630_testdata');
+@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
