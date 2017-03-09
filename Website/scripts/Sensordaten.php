@@ -84,4 +84,5 @@ ORDER BY SEN_ID";
     echo "<p>Livekamera: <a href='/Kamera.php' target=\"_blank\"><span class =\"glyphicon glyphicon-facetime-video\"</span></a></p>";
     echo "<p>Statistiken: <a href='/Statistikenuebersicht.php' target=\"_blank\" ><span class =\"glyphicon glyphicon-stats\"</span></a></p>";
 }
+$mysqli->close();
 ?>
