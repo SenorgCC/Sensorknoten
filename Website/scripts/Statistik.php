@@ -15,6 +15,6 @@ while ($row = $result->fetch_assoc()){
     $tempresult[1]=$row['Messwert'];
     array_push($resultdata,$tempresult);
 }
-
 echo json_encode($resultdata);
+$mysqli->close();
 ?>
