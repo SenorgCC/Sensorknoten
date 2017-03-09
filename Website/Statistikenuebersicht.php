@@ -33,8 +33,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht </a></li>
-                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a></li>
-                <li><a href="Kamera.php">Webcam</a> </li>
+                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a href="Kamera.php">Webcam</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -45,8 +46,9 @@
     </div><!-- /.container-fluid -->
 </nav>
 <!-- Ende Navbar-->
-
-    <div id='placeholder' style="width:600px;height:300px" >
+<div class="container">
+    <div id='placeholder' style="width:600px;height:300px">
     </div>
+</div>
 </body>
 </html>
