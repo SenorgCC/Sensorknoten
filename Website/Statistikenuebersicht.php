@@ -76,7 +76,7 @@
 
         </br>
         <div id='placeholder' style="width:600px;height:300px" >
-        </div>^M
+        </div>
         </div>
 
 </body>
