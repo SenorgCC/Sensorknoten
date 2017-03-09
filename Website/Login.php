@@ -1,4 +1,6 @@
-<?php include("scripts/loginscript.php"); ?>
+<?php
+include("scripts/loginscript.php");
+?>
 
 <!DOCTYPE html>
 <html lang="de">
@@ -27,11 +29,13 @@
         <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
     </form>
 
+    <div id="loginerror">
     <?php
     if(isset($errorMessage)) {
         echo "<label>",$errorMessage,"</label>";
     }
     ?>
+    </div>
 </div>
 
 
