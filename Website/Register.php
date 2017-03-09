@@ -1,6 +1,11 @@
 <?php
-/**session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=test', 'root', '');*/
+session_start();
+@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+if ($mysqli->connect_errno) {
+    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
+        Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -18,6 +23,7 @@ $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden s
 
 if(isset($_GET['register'])) {
     $error = false;
+    $username= $_POST['username'];
     $email = $_POST['email'];
     $passwort = $_POST['passwort'];
     $passwort2 = $_POST['passwort2'];
@@ -35,14 +41,24 @@ if(isset($_GET['register'])) {
         $error = true;
     }
 
-    //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
+
     if(!$error) {
-        $statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $result = $statement->execute(array('email' => $email));
+        //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
+        $statement = $pdo->prepare("SELECT * FROM Login WHERE Email = ?");
+        $result = $statement->execute($email);
         $user = $statement->fetch();
 
         if($user !== false) {
             echo 'Diese E-Mail-Adresse ist bereits vergeben<br>';
+            $error = true;
+        }
+        //Überprüfe,dass der Benutzername noch nicht registriert wurde
+        $statement = $pdo->prepare("SELECT * FROM Login WHERE Benutzername = ?");
+        $result = $statement->execute($username);
+        $user = $statement->fetch();
+
+        if($user !== false) {
+            echo 'Diesr Benutzername ist bereits vergeben<br>';
             $error = true;
         }
     }
@@ -51,8 +67,8 @@ if(isset($_GET['register'])) {
     if(!$error) {
         $passwort_hash = password_hash($passwort, PASSWORD_DEFAULT);
 
-        $statement = $pdo->prepare("INSERT INTO users (email, passwort) VALUES (:email, :passwort)");
-        $result = $statement->execute(array('email' => $email, 'passwort' => $passwort_hash));
+        $statement = $mysqli->prepare("INSERT INTO Login (Benutzername, Passwort, Email) VALUES (? , ?, ? )");
+        $result = $statement->execute($username, $passwort_hash, $email);
 
         if($result) {
             echo 'Du wurdest erfolgreich registriert. <a href="Login.php">Zum Login</a>';
@@ -71,6 +87,9 @@ if($showFormular) {
 
         <label for="username" class="sr-only">Name</label>
         <input id="username" type="name" name="username" class="form-control" placeholder="Name" autofocus>
+
+        <label for="email" class="sr-only">Email-Adresse</label>
+        <input id="email" name="email" class="form-control" placeholder="Email-Adresse">
 
         <label for="inputPassword" class="sr-only">Passwort</label>
         <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Passwort">
