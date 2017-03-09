@@ -1,5 +1,4 @@
 <?php
-echo "HALLO";
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
@@ -15,6 +14,6 @@ while ($row = $result->fetch_assoc()){
     $tempresult[1]=$row['Messwert'];
     array_push($resultdata,$tempresult);
 }
-
 echo json_encode($resultdata);
+$mysqli->close();
 ?>
