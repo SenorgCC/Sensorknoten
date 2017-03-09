@@ -33,8 +33,9 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht </a></li>
-                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a></li>
-                <li><a href="Kamera.php">Webcam</a> </li>
+                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a href="Kamera.php">Webcam</a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -46,7 +47,37 @@
 </nav>
 <!-- Ende Navbar-->
 
-    <div id='placeholder' style="width:600px;height:300px" >
-    </div>
+     <div class="container">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <p>Sensorknoten:</p>
+            <select class="form-control" id="Sensorknotenauswahl">
+                <option>Test</option>
+    </select>
+        </div>
+        <div class="btn-group" role="group">
+            <p>Sensoren:</p>
+            <select class="form-control" id="Sensorauswahl">
+
+            </select>
+        </div>
+        <div class="btn-group" role="group">
+            <p>Zeitraum:</p>
+            <select class="form-control" id="s">
+                <!--PHP FUNKTION FÜR OPTIONEN-->
+                <option>Tag</option>
+                <option>Woche</option>
+                <option>Monat</option>
+            </select>
+        </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-default">Auswahl</button>
+
+        </br>
+        <div id='placeholder' style="width:600px;height:300px" >
+        </div>
+        </div>
+
 </body>
 </html>

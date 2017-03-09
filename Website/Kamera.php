@@ -1,7 +1,3 @@
-<?php
-echo "Hier sehen sie irgendwann ein Livebild der Kamera";
-?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -36,7 +32,7 @@ echo "Hier sehen sie irgendwann ein Livebild der Kamera";
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht</a></li>
                 <li><a href="Statistikenuebersicht.php">Statistik</a></li>
-                <li class="active"><a href="Kamera.php">Webcam <span class="sr-only">(current)</span></a> </li>
+                <li class="active"><a href="Kamera.php">Webcam <span class="sr-only">(current)</span></a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -46,8 +42,23 @@ echo "Hier sehen sie irgendwann ein Livebild der Kamera";
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<div class="container">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <p>Sensorknote:</p>
+            <select class="form-control" id="sel1">
+                <!--PHP FUNKTION FÜR OPTIONEN-->
+                <option>Sensor 01</option>
+                <option>Sensor 02</option>
+                <option>Sensor 03</option>
+                <option>Sensor 04</option>
+            </select>
 
-
+        </div>
+    </div>
+    <br>
+    <button type="button" class="btn btn-default">Auswahl</button>
+</div>
 
 </body>
 </html>
