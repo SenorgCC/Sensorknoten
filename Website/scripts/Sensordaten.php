@@ -80,6 +80,7 @@ ORDER BY SEN_ID";
     echo "        </tbody>";
     echo "    </table>";
     echo "</div>";
+    echo "<p>Livekamera: <a href='http://testzwodreivier.de/Studi/Kamera.php' target=\"_blank\"><span class =\"glyphicon glyphicon-facetime-video\"</span></a></p>";
+    echo "<p>Statistiken: <a href='http://testzwodreivier.de/Studi/Statistik.php' target=\"_blank\" ><span class =\"glyphicon glyphicon-stats\"</span></a></p>";
 }
-
 ?>
