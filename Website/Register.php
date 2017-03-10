@@ -104,6 +104,7 @@ if ($showFormular) {
 
     <?php
 } //Ende von if($showFormular)
+$mysqli->close();
 ?>
 
 </body>
