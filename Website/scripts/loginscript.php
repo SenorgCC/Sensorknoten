@@ -1,7 +1,5 @@
 <?php
-/**session_start();
-$pdo = new PDO('mysql:host=localhost;dbname=php-einfach', 'root', '');
-*/
+session_start();
 
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {

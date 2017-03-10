@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Übersicht</title>
+    <title>Statistik</title>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/flot/jquery.flot.js"></script>
