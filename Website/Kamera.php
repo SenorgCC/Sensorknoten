@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht</a></li>
-                <li><a href="Statistikenuebersicht.php">Statistik</a></li>
+                <li><a href="Statistik.php">Statistik</a></li>
                 <li class="active"><a href="Kamera.php">Webcam <span class="sr-only">(current)</span></a></li>
             </ul>
             <!-- Rechte Seite der Navbar -->

@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="Uebersicht.php">Übersicht </a></li>
-                <li class="active"><a href="Statistikenuebersicht.php">Statistik <span class="sr-only">(current)</span></a>
+                <li class="active"><a href="Statistik.php">Statistik <span class="sr-only">(current)</span></a>
                 </li>
                 <li><a href="Kamera.php">Webcam</a></li>
             </ul>
