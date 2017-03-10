@@ -21,34 +21,34 @@ if ($mysqli->connect_errno) {
 <?php
 $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden soll
 
-if(isset($_GET['register'])) {
+if (isset($_GET['register'])) {
     $error = false;
-    $username= $_POST['username'];
+    $username = $_POST['username'];
     $email = $_POST['email'];
     $passwort = $_POST['passwort'];
     $passwort2 = $_POST['passwort2'];
 
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo 'Bitte eine gültige E-Mail-Adresse eingeben<br>';
         $error = true;
     }
-    if(strlen($passwort) == 0) {
+    if (strlen($passwort) == 0) {
         echo 'Bitte ein Passwort angeben<br>';
         $error = true;
     }
-    if($passwort != $passwort2) {
+    if ($passwort != $passwort2) {
         echo 'Die Passwörter müssen übereinstimmen<br>';
         $error = true;
     }
 
 
-    if(!$error) {
+    if (!$error) {
         //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
         $statement = $pdo->prepare("SELECT * FROM Login WHERE Email = ?");
         $result = $statement->execute($email);
         $user = $statement->fetch();
 
-        if($user !== false) {
+        if ($user !== false) {
             echo 'Diese E-Mail-Adresse ist bereits vergeben<br>';
             $error = true;
         }
@@ -57,20 +57,20 @@ if(isset($_GET['register'])) {
         $result = $statement->execute($username);
         $user = $statement->fetch();
 
-        if($user !== false) {
+        if ($user !== false) {
             echo 'Diesr Benutzername ist bereits vergeben<br>';
             $error = true;
         }
     }
 
     //Keine Fehler, wir können den Nutzer registrieren
-    if(!$error) {
+    if (!$error) {
         $passwort_hash = password_hash($passwort, PASSWORD_DEFAULT);
 
         $statement = $mysqli->prepare("INSERT INTO Login (Benutzername, Passwort, Email) VALUES (? , ?, ? )");
         $result = $statement->execute($username, $passwort_hash, $email);
 
-        if($result) {
+        if ($result) {
             echo 'Du wurdest erfolgreich registriert. <a href="Login.php">Zum Login</a>';
             $showFormular = false;
         } else {
@@ -79,7 +79,7 @@ if(isset($_GET['register'])) {
     }
 }
 
-if($showFormular) {
+if ($showFormular) {
     ?>
 
     <form class="form-signin" action="?register=1" method="post">
@@ -95,7 +95,8 @@ if($showFormular) {
         <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Passwort">
 
         <label for="inputPassword2" class="sr-only">Passwort wiederholen</label>
-        <input type="password" name="passwort2" id="inputPassword2" class="form-control" placeholder="Passwort wiederholen">
+        <input type="password" name="passwort2" id="inputPassword2" class="form-control"
+               placeholder="Passwort wiederholen">
 
         <label for="registrierenbutton" class="sr-only">Registrieren</label>
         <input id="registrierenbutton" class="btn btn-lg btn-primary btn-block" type="submit" value="Registrieren">

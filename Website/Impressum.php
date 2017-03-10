@@ -58,7 +58,8 @@
 <div class="container">
     <div id="impressuminhalt">
         <img src="Bilder/dhbw-logo.png" alt="Logo DHBW"> <br>
-        Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen Hochschule Baden-Württemberg erstellt.<br>
+        Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen
+        Hochschule Baden-Württemberg erstellt.<br>
         Es wurden keine anderen als in der Dokumentation genannten Quellen verwendet.<br>
 
 

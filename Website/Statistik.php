@@ -47,13 +47,13 @@
 </nav>
 <!-- Ende Navbar-->
 
-     <div class="container">
+<div class="container">
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <p>Sensorknoten:</p>
             <select class="form-control" id="Sensorknotenauswahl">
                 <option>Test</option>
-    </select>
+            </select>
         </div>
         <div class="btn-group" role="group">
             <p>Sensoren:</p>
@@ -70,14 +70,14 @@
                 <option>Monat</option>
             </select>
         </div>
-        </div>
-        <br>
-        <button id="ShowGraphBtn" type="button" class="btn btn-default">Auswahl</button>
+    </div>
+    <br>
+    <button id="ShowGraphBtn" type="button" class="btn btn-default">Auswahl</button>
 
-        </br>
-        <div id='placeholder' style="width:600px;height:300px" >
-        </div>
-        </div>
+    </br>
+    <div id='placeholder' style="width:600px;height:300px">
+    </div>
+</div>
 
 </body>
 </html>

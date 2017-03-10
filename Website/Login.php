@@ -1,5 +1,5 @@
 <?php
-include("scripts/loginscript.php");
+include("scripts/login/loginscript.php");
 ?>
 
 <!DOCTYPE html>
@@ -30,11 +30,11 @@ include("scripts/loginscript.php");
     </form>
 
     <div id="loginerror">
-    <?php
-    if(isset($errorMessage)) {
-        echo "<label>",$errorMessage,"</label>";
-    }
-    ?>
+        <?php
+        if (isset($errorMessage)) {
+            echo "<label>", $errorMessage, "</label>";
+        }
+        ?>
     </div>
 </div>
 

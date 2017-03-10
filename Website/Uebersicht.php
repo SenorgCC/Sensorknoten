@@ -61,7 +61,7 @@
 <!-- Ende Navbar-->
 <div class="container">
     <div id="datentabelle">
-        <?php include("scripts/sensordaten.php"); ?>
+        <?php include("scripts/uebersicht/sensordaten.php"); ?>
     </div>
 </div>
 </body>

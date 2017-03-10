@@ -8,7 +8,7 @@ if ($mysqli->connect_errno) {
 }
 
 
-if(isset($_GET['login'])) {
+if (isset($_GET['login'])) {
     $username = $_POST['username'];
     $passwort = $_POST['passwort'];
 

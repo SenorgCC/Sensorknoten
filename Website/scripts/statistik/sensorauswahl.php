@@ -1,4 +1,3 @@
-
 <?php
 $sensorknoten = $_POST['name'];
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
@@ -15,8 +14,8 @@ WHERE Knotennamen = '$sensorknoten'
 )AS Stub ORDER BY Sensorname;";
 $result = $mysqli->query($query);
 $resultdata[] = array();
-while ($row = $result->fetch_assoc()){
-    array_push($resultdata,$row['Sensorname']);
+while ($row = $result->fetch_assoc()) {
+    array_push($resultdata, $row['Sensorname']);
 }
 echo json_encode($resultdata);
 $mysqli->close();

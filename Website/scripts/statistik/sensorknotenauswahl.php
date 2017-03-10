@@ -8,8 +8,8 @@ $query = "SELECT Knotennamen FROM Sensorknoten";
 $result = $mysqli->query($query);
 $resultdata[] = array();
 $i = 0;
-while ($row = $result->fetch_assoc()){
-    array_push($resultdata,$row['Knotennamen']);
+while ($row = $result->fetch_assoc()) {
+    array_push($resultdata, $row['Knotennamen']);
 }
 
 echo json_encode($resultdata);

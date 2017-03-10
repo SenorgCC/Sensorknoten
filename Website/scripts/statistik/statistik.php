@@ -8,11 +8,11 @@ $query = "SELECT Timestamp, Messwert From Messwerte WHERE SEN_ID = '1'";
 $result = $mysqli->query($query);
 $resultdata[] = array();
 $i = 0;
-while ($row = $result->fetch_assoc()){
-    $tempresult=array();
-    $tempresult[0]=$row['Timestamp'];
-    $tempresult[1]=$row['Messwert'];
-    array_push($resultdata,$tempresult);
+while ($row = $result->fetch_assoc()) {
+    $tempresult = array();
+    $tempresult[0] = $row['Timestamp'];
+    $tempresult[1] = $row['Messwert'];
+    array_push($resultdata, $tempresult);
 }
 
 echo json_encode($resultdata);
