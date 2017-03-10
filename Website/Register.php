@@ -5,8 +5,9 @@ if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
 }
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -41,11 +42,11 @@ if (isset($_GET['register'])) {
         $error = true;
     }
 
-
     if (!$error) {
         //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
-        $statement = $pdo->prepare("SELECT * FROM Login WHERE Email = ?");
-        $result = $statement->execute($email);
+        $statement = $mysqli->prepare("SELECT * FROM Login WHERE Email = ?");
+        $statement->bind_param("s", $email);
+        $statement->execute();
         $user = $statement->fetch();
 
         if ($user !== false) {
@@ -53,8 +54,9 @@ if (isset($_GET['register'])) {
             $error = true;
         }
         //Überprüfe,dass der Benutzername noch nicht registriert wurde
-        $statement = $pdo->prepare("SELECT * FROM Login WHERE Benutzername = ?");
-        $result = $statement->execute($username);
+        $statement = $mysqli->prepare("SELECT * FROM Login WHERE Benutzername = ?");
+        $statement->bind_param("s", $email);
+        $statement->execute($username);
         $user = $statement->fetch();
 
         if ($user !== false) {
@@ -68,7 +70,8 @@ if (isset($_GET['register'])) {
         $passwort_hash = password_hash($passwort, PASSWORD_DEFAULT);
 
         $statement = $mysqli->prepare("INSERT INTO Login (Benutzername, Passwort, Email) VALUES (? , ?, ? )");
-        $result = $statement->execute($username, $passwort_hash, $email);
+        $statement->bind_param("sss", $username, $passwort_hash, $email);
+        $result = $statement->execute();
 
         if ($result) {
             echo 'Du wurdest erfolgreich registriert. <a href="Login.php">Zum Login</a>';
@@ -104,6 +107,7 @@ if ($showFormular) {
 
     <?php
 } //Ende von if($showFormular)
+$mysqli->close();
 ?>
 
 </body>
