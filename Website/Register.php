@@ -1,3 +1,13 @@
+<?php
+session_start();
+@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+if ($mysqli->connect_errno) {
+    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
+        Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -10,16 +20,6 @@
 <body>
 
 <?php
-
-session_start();
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
-if ($mysqli->connect_errno) {
-    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
-        Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
-}
-
-
-
 $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden soll
 
 if (isset($_GET['register'])) {
@@ -42,10 +42,9 @@ if (isset($_GET['register'])) {
         $error = true;
     }
 
-
     if (!$error) {
         //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
-        $statement = $pdo->prepare("SELECT * FROM Login WHERE Email = ?");
+        $statement = $mysqli->prepare("SELECT * FROM Login WHERE Email = ?");
         $result = $statement->execute($email);
         $user = $statement->fetch();
 
@@ -54,7 +53,7 @@ if (isset($_GET['register'])) {
             $error = true;
         }
         //Überprüfe,dass der Benutzername noch nicht registriert wurde
-        $statement = $pdo->prepare("SELECT * FROM Login WHERE Benutzername = ?");
+        $statement = $mysqli->prepare("SELECT * FROM Login WHERE Benutzername = ?");
         $result = $statement->execute($username);
         $user = $statement->fetch();
 
