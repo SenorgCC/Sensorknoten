@@ -63,7 +63,7 @@
         </div>
         <div class="btn-group" role="group">
             <p>Zeitraum:</p>
-            <select class="form-control" id="s">
+            <select class="form-control" id="Zeitraum">
                 <!--PHP FUNKTION FÜR OPTIONEN-->
                 <option>Tag</option>
                 <option>Woche</option>
@@ -72,7 +72,7 @@
         </div>
         </div>
         <br>
-        <button type="button" class="btn btn-default">Auswahl</button>
+        <button id="ShowGraphBtn" type="button" class="btn btn-default">Auswahl</button>
 
         </br>
         <div id='placeholder' style="width:600px;height:300px" >

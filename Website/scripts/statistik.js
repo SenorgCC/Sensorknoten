@@ -12,16 +12,28 @@ $(document).ready(function(){
     });
     $('#Sensorknotenauswahl').change(function(){
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
-        var sendedata = {name : JSON.stringify(Sensorknoten)};
+        var sendedata = {name : Sensorknoten};
         $.post('scripts/sensorauswahl.php', sendedata, function(data){
             data= JSON.parse(data);
-            alert(data);
             $.each(data, function(index, value){
                 if(value !=0){
                     $('#Sensorauswahl').append('<option>'+value+'</option>');
                 }
             });
         });
+    });
+
+    $('#ShowGraphBtn').click(function(){
+        var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
+        var Sensor = $('#Sensorauswahl option:selected').text();
+        var Zeit = $('#Zeitraum option:selected').text();
+        var sendedata = {sensorknoten: Sensorknoten,
+                         sensor: Sensor};
+        $.post('scripts/NewStatistik.php', sendedata, function(data){
+            data= JSON.parse(data);
+            alert(data);
+        });
+
     });
 
     $.post('scripts/Statistik.php', function(data){
