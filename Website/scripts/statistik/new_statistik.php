@@ -14,7 +14,6 @@ $query = "Select Timestamp, Messwert from Sensorknoten SK
                        AND Sensorname = '$sensorname';";
 $result = $mysqli->query($query);
 $resultdata[] = array();
-$i = 0;
 while ($row = $result->fetch_assoc()) {
     $tempresult = array();
     $tempresult[0] = $row['Timestamp'];
