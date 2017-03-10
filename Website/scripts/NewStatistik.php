@@ -6,14 +6,12 @@ if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
 }
-$query = " Select * FROM(
-                        SELECT Timestamp, Messwert from Sensorknoten SK
-                            INNER JOIN Sensorknoten_Messwerte AS SM ON (SK.KN_ID = SM.KN_ID)
-                            INNER JOIN Messwerte AS M ON (SM.MESS_ID = M.MESS_ID)
-                            INNER JOIN Sensoren S ON (M.SEN_ID = M.MESS_ID)
-                        WHERE Knotennamen = '$sensorknoten'
-                        AND Sensorname ='$sensorname'
-                       )AS Stub ORDER BY Sensorname;";
+$query = "Select Timestamp, Messwert from Sensorknoten SK
+                            inner join Sensorknoten_Messwerte as SM on (SK.KN_ID = SM.KN_ID)
+                            inner join Messwerte as M on (SM.MESS_ID = M.MESS_ID)
+                            inner join Sensoren as S on (M.SEN_ID = S.SEN_ID)
+                       WHERE Knotennamen = '$sensorknoten'
+                       AND Sensorname = '$sensorname';";
 $result = $mysqli->query($query);
 $resultdata[] = array();
 $i = 0;
