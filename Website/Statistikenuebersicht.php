@@ -8,7 +8,7 @@
     <script src="sources/flot/jquery.flot.js"></script>
     <script src="sources/flot/jquery.flot.time.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/statistik.js"></script>
+    <script src="scripts/statistik/statistik.js"></script>
 
 </head>
 <body>

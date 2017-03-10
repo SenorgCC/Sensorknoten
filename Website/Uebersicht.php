@@ -22,7 +22,7 @@
     <script src="sources/flot/jquery.flot.js"></script>
     <script src="sources/flot/jquery.flot.time.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-    <script src="scripts/uebersichtscript.js"></script>
+    <script src="scripts/uebersicht/uebersichtscript.js"></script>
 
 </head>
 <body>
@@ -61,7 +61,7 @@
 <!-- Ende Navbar-->
 <div class="container">
     <div id="datentabelle">
-        <?php include("scripts/Sensordaten.php"); ?>
+        <?php include("scripts/sensordaten.php"); ?>
     </div>
 </div>
 </body>

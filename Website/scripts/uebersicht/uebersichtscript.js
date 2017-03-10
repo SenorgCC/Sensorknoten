@@ -28,8 +28,8 @@ function createTable(row, col, id) {
 
 $(document).ready(function(){
     // Neuladen alle 5000ms -> 5s
-    $("#datentabelle").load("scripts/Sensordaten.php");
+    $("#datentabelle").load("scripts/sensordaten.php");
     var refreshId = setInterval(function() {
-        $("#datentabelle").load('scripts/Sensordaten.php')
+        $("#datentabelle").load('scripts/sensordaten.php')
     }, 5000);
 });

@@ -29,14 +29,14 @@ $(document).ready(function(){
         var Zeit = $('#Zeitraum option:selected').text();
         var sendedata = {sensorknoten: Sensorknoten,
                          sensor: Sensor};
-        $.post('scripts/NewStatistik.php', sendedata, function(data){
+        $.post('scripts/new_statistik.php', sendedata, function(data){
             data= JSON.parse(data);
             alert(data);
         });
 
     });
 
-    $.post('scripts/Statistik.php', function(data){
+    $.post('scripts/statistik.php', function(data){
         data= JSON.parse(data);
         for (var i=0; i<data.length; i++){
             data[i][0] = new Date(data[i][0]).getTime();
