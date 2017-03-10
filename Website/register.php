@@ -1,15 +1,15 @@
 <?php
-include_once 'includes/register.inc.php';
-include_once 'includes/functions.php';
+include_once 'scripts/login/register_inc.php';
+include_once 'scripts/login/functions.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Secure Login: Registration Form</title>
-    <script type="text/JavaScript" src="js/sha512.js"></script>
-    <script type="text/JavaScript" src="js/forms.js"></script>
-    <link rel="stylesheet" href="styles/main.css" />
+    <script type="text/JavaScript" src="scripts/login/js/sha512.js"></script>
+    <script type="text/JavaScript" src="scripts/login/js/forms.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 <!-- Anmeldeformular für die Ausgabe, wenn die POST-Variablen nicht gesetzt sind
@@ -54,6 +54,6 @@ if (!empty($error_msg)) {
                                    this.form.password,
                                    this.form.confirmpwd);" />
 </form>
-<p>Return to the <a href="index.php">login page</a>.</p>
+<p>Return to the <a href="Login.php">login page</a>.</p>
 </body>
 </html>
