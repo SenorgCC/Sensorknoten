@@ -1,5 +1,5 @@
 <?php
-include_once 'db_connect.php';
+include_once 'db-connect.php';
 include_once 'functions.php';
 
 sec_session_start(); // Unsere selbstgemachte sichere Funktion um eine PHP-Sitzung zu starten.
