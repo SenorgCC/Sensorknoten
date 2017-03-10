@@ -1,12 +1,3 @@
-<?php
-session_start();
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
-if ($mysqli->connect_errno) {
-    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
-        Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
-}
-
-?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -19,6 +10,16 @@ if ($mysqli->connect_errno) {
 <body>
 
 <?php
+
+session_start();
+@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+if ($mysqli->connect_errno) {
+    echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
+        Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
+}
+
+
+
 $showFormular = true; //Variable ob das Registrierungsformular anezeigt werden soll
 
 if (isset($_GET['register'])) {
