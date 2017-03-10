@@ -1,16 +1,3 @@
-<?php
-/**session_start();
- * if(!isset($_SESSION['userid'])) {
- * die('Bitte zuerst <a href="login.php">einloggen</a>');
- * }
- *
- * //Abfrage der Nutzer ID vom Login
- * $userid = $_SESSION['userid'];
- *
- * echo "Hallo User: ".$userid;
- */
-?>
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -50,7 +37,7 @@
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="Impressum.php">Impressum <span class="sr-only">(current)</span></a></li>
-                <li><a href="Logout.php">Logout</a></li>
+                <li><a href="Logout_alt.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

@@ -21,7 +21,7 @@ $logout = true;
     } else
         echo "<h2 class=form-signin-heading>Logout nicht erfolgreich</h2>";
     ?>
-    <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zurück zum Login</a>
+    <a class="btn btn-lg btn-primary btn-block" href="Login_alt.php">Zurück zum Login</a>
 </div>
 
 </body>

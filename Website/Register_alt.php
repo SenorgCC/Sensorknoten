@@ -77,7 +77,7 @@ if (isset($_GET['register'])) {
         $result = $statement->execute();
 
         if ($result) {
-            echo 'Du wurdest erfolgreich registriert. <a href="Login.php">Zum Login</a>';
+            echo 'Du wurdest erfolgreich registriert. <a href="Login_alt.php">Zum Login</a>';
             $showFormular = false;
         } else {
             echo 'Beim Abspeichern ist leider ein Fehler aufgetreten<br>';

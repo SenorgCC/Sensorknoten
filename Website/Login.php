@@ -1,43 +1,40 @@
 <?php
-include("scripts/login/loginscript.php");
-?>
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
 
+sec_session_start();
+
+if (login_check($mysqli) == true) {
+    $logged = 'in';
+} else {
+    $logged = 'out';
+}
+?>
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <script src="sources/jquery-3.1.1.min.js"></script>
+    <title>Secure Login: Log In</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <script type="text/JavaScript" src="js/sha512.js"></script>
+    <script type="text/JavaScript" src="js/forms.js"></script>
 </head>
 <body>
-
-<div class="container">
-    <form class="form-signin" method="post" action="?login=1">
-        <h2 class="form-signin-heading">Sensorüberwachung</h2>
-
-        <label for="inputname" class="sr-only">Name</label>
-        <input type="name" name="username" id="inputname" class="form-control" placeholder="Name" autofocus>
-
-        <label for="inputPassword" class="sr-only">Passwort</label>
-        <input type="password" name="passwort" id="inputPassword" class="form-control" placeholder="Password">
-
-        <button id="submitbtn" class="btn btn-lg btn-primary btn-block" type="submit">
-            Einloggen
-        </button>
-        <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
-    </form>
-
-    <div id="loginerror">
-        <?php
-        if (isset($errorMessage)) {
-            echo "<label>", $errorMessage, "</label>";
-        }
-        ?>
-    </div>
-</div>
-
-
+<?php
+if (isset($_GET['error'])) {
+    echo '<p class="error">Error Logging In!</p>';
+}
+?>
+<form action="includes/process_login.php" method="post" name="login_form">
+    Email: <input type="text" name="email" />
+    Password: <input type="password"
+                     name="password"
+                     id="password"/>
+    <input type="button"
+           value="Login"
+           onclick="formhash(this.form, this.form.password);" />
+</form>
+<p>If you don't have a login, please <a href="register.php">register</a></p>
+<p>If you are done, please <a href="includes/logout.php">log out</a>.</p>
+<p>You are currently logged <?php echo $logged ?>.</p>
 </body>
 </html>
