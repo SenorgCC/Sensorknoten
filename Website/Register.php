@@ -46,20 +46,23 @@ if (isset($_GET['register'])) {
         //Überprüfe, dass die E-Mail-Adresse noch nicht registriert wurde
         $statement = $mysqli->prepare("SELECT * FROM Login WHERE Email = ?");
         $statement->bind_param("s", $email);
-        $statement->execute();
+        $result=$statement->execute();
         $user = $statement->fetch();
+        echo "<br>";
+        var_dump($result);
+        var_dump($user);
 
-        if ($user !== false) {
+        if ($user !== NULL) {
             echo 'Diese E-Mail-Adresse ist bereits vergeben<br>';
             $error = true;
         }
         //Überprüfe,dass der Benutzername noch nicht registriert wurde
         $statement = $mysqli->prepare("SELECT * FROM Login WHERE Benutzername = ?");
-        $statement->bind_param("s", $email);
-        $statement->execute($username);
+        $statement->bind_param("s", $username);
+        $result = $statement->execute();
         $user = $statement->fetch();
 
-        if ($user !== false) {
+        if ($user !== TRUE) {
             echo 'Diesr Benutzername ist bereits vergeben<br>';
             $error = true;
         }
