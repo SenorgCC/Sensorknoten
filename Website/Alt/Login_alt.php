@@ -7,9 +7,9 @@ include("scripts/login/loginscript.php");
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <script src="sources/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../sources/bootstrap/css/bootstrap.css">
+    <script src="../sources/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 

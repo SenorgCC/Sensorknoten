@@ -53,7 +53,7 @@
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="Impressum.php">Impressum</a></li>
-                <li><a href="Logout_alt.php">Logout</a></li>
+                <li><a href="Alt/Logout_alt.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
