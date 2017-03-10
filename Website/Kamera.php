@@ -46,18 +46,14 @@
     <div class="btn-group" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <p>Sensorknoten:</p>
-            <select class="form-control">
+            <select class="form-control" id="kamera">
                 <!--PHP FUNKTION FÜR OPTIONEN-->
-                <option>Sensor 01</option>
-                <option>Sensor 02</option>
-                <option>Sensor 03</option>
-                <option>Sensor 04</option>
             </select>
         </div>
     </div>
     <br>
     <br>
-    <button type="button" class="btn btn-default">Auswahl</button>
+    <button type="button" class="btn btn-default" id="kameraBtn">Auswahl</button>
 </div>
 
 </body>
