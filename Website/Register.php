@@ -1,15 +1,18 @@
 <?php
+/**
 include_once 'scripts/login/register_inc.php';
 include_once 'scripts/login/functions.php';
+ */
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Secure Login: Registration Form</title>
+    <title>Registrierung</title>
     <script type="text/JavaScript" src="scripts/login/js/sha512.js"></script>
     <script type="text/JavaScript" src="scripts/login/js/forms.js"></script>
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
 </head>
 <body>
 <!-- Anmeldeformular für die Ausgabe, wenn die POST-Variablen nicht gesetzt sind
