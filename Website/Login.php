@@ -33,7 +33,7 @@ if (login_check($mysqli) == true) {
         <label for="inputPassword" class="sr-only">Passwort</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
 
-        <input type="button" class="btn btn-lg btn-primary btn-block" value="Einloggen"
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Einloggen"
                onclick="formhash(this.form, this.form.password);"/>
 
         <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
