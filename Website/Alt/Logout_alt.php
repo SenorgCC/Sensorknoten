@@ -9,8 +9,8 @@ $logout = true;
 <head>
     <meta charset="UTF-8">
     <title>Logout</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../sources/bootstrap/css/bootstrap.css">
 </head>
 <body>
 

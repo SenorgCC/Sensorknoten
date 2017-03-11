@@ -1,5 +1,5 @@
 <?php
-include_once 'includes/functions.php';
+include_once 'functions.php';
 sec_session_start();
 
 // Setze alle Session-Werte zurück
@@ -18,4 +18,4 @@ setcookie(session_name(),
 
 // Vernichte die Session
 session_destroy();
-header('Location: ../ index.php');
+header('Location: .../ Login.php');
