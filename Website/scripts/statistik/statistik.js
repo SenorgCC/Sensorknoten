@@ -18,7 +18,7 @@ $(document).ready(function () {
                     show: true,
                     fill: true,
                     align: "center",
-                    barWidth: 10000
+                    barWidth: 100
                 },
                 lines: {show: false},
 
