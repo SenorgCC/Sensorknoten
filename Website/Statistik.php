@@ -52,7 +52,7 @@
         <div class="btn-group" role="group">
             <p>Sensorknoten:</p>
             <select class="form-control" id="Sensorknotenauswahl">
-                <option>Test</option>
+                <option>Bitte Sensorknoten auswählen</option>
             </select>
         </div>
         <div class="btn-group" role="group">
