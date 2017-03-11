@@ -3,6 +3,13 @@ $(document).ready(function () {
     function zeichneGraph(data, mode, Beschriftung) {
         if (mode == "binär") {
             $.plot("#placeholder", [data], {
+                axisLabels:{
+                   show: true
+                },
+                yaxes:[{
+                    axisLabel:Beschriftung
+                    //axisLabelUseCanvas: true
+                }],
                 xaxis: {
                     mode: "time",
                     timeformat: "%y-%m-%d %H:%M:%S"
@@ -20,6 +27,13 @@ $(document).ready(function () {
             })
         } else {
             $.plot("#placeholder", [data], {
+                axisLabels:{
+                    show: true
+                },
+                yaxes:[{
+                    axisLabel:Beschriftung
+                    //axisLabelUseCanvas: true
+                }],
                 xaxis: {
                     mode: "time",
                     timeformat: "%y-%m-%d %H:%M:%S"
@@ -56,6 +70,7 @@ $(document).ready(function () {
 
     $('#ShowGraphBtn').click(function () {
         ///TODO: Messdatenselection auf Zeitraum anpassen!
+        var Beschriftung="";
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
         var Sensor = $('#Sensorauswahl option:selected').text();
         var Zeit = $('#Zeitraum option:selected').text();
@@ -63,14 +78,41 @@ $(document).ready(function () {
             sensorknoten: Sensorknoten,
             sensor: Sensor
         };
+        switch (Sensor){
+            case "Temperatur":
+                Beschriftung ="Temperatur in [°C]";
+                break;
+            case "Luftfeuchtigkeit":
+                Beschriftung ="Luftfeuchtigkeit in [%]";
+                break;
+            case "Flammsensor":
+                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                break;
+            case "Lichtschranke":
+                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                break;
+            case "Mikrofon":
+                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                break;
+            case "Lichtsensor":
+                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                break;
+            case "Schocksensor":
+                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                break;
+            default:
+                alert("Nicht bekannter Sensor!");
+                return;
+        }
+        alert (Beschriftung);
         $.post('scripts/statistik/new_statistik.php', sendedata, function (data) {
             ///TODO: Dictionary anschauen! Zuweisung Sensor und Beschreibung!
             var mode = 0;
-            var Beschriftung = "";
             data = JSON.parse(data);
             // Stichprobentest, erste Position vom Array ist bisher 0, daher muss die 2. genommen werden
             if (data[1][1] == "TRUE" || data[1][1] == "FALSE") {
                 mode = "binär";
+
             }
             for (var i = 0; i < data.length; i++) {
                 data[i][0] = new Date(data[i][0]).getTime();
