@@ -1,3 +1,10 @@
+<?php
+include_once 'scripts/login/db-connect.php';
+include_once 'scripts/login/functions.php';
+
+sec_session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -10,7 +17,7 @@
 
 </head>
 <body>
-
+<?php if (login_check($mysqli) == true) : ?>
 <!-- Beginn Navbar-->
 <nav class="navbar navbar-default" id="navbar">
     <div class="container-fluid">
@@ -37,7 +44,7 @@
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="Impressum.php">Impressum </a></li>
-                <li><a href="Alt/Logout_alt.php">Logout</a></li>
+                <li><a href="scripts/login/logout.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -55,6 +62,13 @@
     <br>
     <button type="button" class="btn btn-default" id="kameraBtn">Auswahl</button>
 </div>
+
+<?php else : ?>
+    <div id="loginerror">
+        <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
+        <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
+    </div>
+<?php endif; ?>
 
 </body>
 </html>
