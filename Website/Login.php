@@ -39,6 +39,8 @@ if (login_check($mysqli) == true) {
         <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
     </form>
 
+
+
     <div id="loginerror">
         <?php
         if (isset($_GET['error'])) {
