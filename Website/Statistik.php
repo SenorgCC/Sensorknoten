@@ -1,8 +1,16 @@
+<?php
+include_once 'scripts/login/db-connect.php';
+include_once 'scripts/login/functions.php';
+
+sec_session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Statistik</title>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/flot/jquery.flot.js"></script>
@@ -13,7 +21,7 @@
 
 </head>
 <body>
-
+<?php if (login_check($mysqli) == true) : ?>
 <!-- Beginn Navbar-->
 <nav class="navbar navbar-default" id="navbar">
     <div class="container-fluid">
@@ -77,6 +85,13 @@
     <div id='placeholder' style="width:600px;height:300px">
     </div>
 </div>
+
+<?php else : ?>
+    <div id="loginerror">
+        <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
+        <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
+    </div>
+<?php endif; ?>
 
 </body>
 </html>
