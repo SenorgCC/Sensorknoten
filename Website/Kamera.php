@@ -61,6 +61,9 @@ sec_session_start();
         <br>
         <br>
         <button type="button" class="btn btn-default" id="kameraBtn">Auswahl</button>
+        <br>
+        <div id="kameraanzeige">
+        </div>
     </div>
 
 <?php else : ?>
