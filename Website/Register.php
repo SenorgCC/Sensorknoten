@@ -11,7 +11,7 @@ include_once 'scripts/login/functions.php';
     <title>Registrierung</title>
     <script type="text/JavaScript" src="scripts/login/js/sha512.js"></script>
     <script type="text/JavaScript" src="scripts/login/js/forms.js"></script>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
 </head>
 <body>
@@ -39,7 +39,7 @@ if (!empty($error_msg)) {
     </li>
     <li>Das Passwort und die Bestätigung müssen exakt übereinstimmen.</li>
 </ul>
-<form action="<?php /**echo esc_url($_SERVER['PHP_SELF']); */?>" method="post" name="registration_form">
+<form action="<?php /**echo esc_url($_SERVER['PHP_SELF']); */ ?>" method="post" name="registration_form">
     Username: <input type='text' name='username' id='username' /><br>
     Email: <input type="text" name="email" id="email" /><br>
     Password: <input type="password" name="password" id="password"/><br>
@@ -52,21 +52,20 @@ if (!empty($error_msg)) {
 -->
 
 
-
 <div id="passwortanforderungen">
-<ul>
-    <li>Benutzernamen dürfen nur Ziffern, Groß- und Kleinbuchstaben und Unterstriche enthalten.</li>
-    <li>E-Mail-Adressen müssen ein gültiges Format haben.</li>
-    <li>Passwörter müssen mindest sechs Zeichen lang sein.</li>
-    <li>Passwörter müssen enthalten
-        <ul>
-            <li>mindestens einen Großbuchstaben (A..Z)</li>
-            <li>mindestens einen Kleinbuchstabenr (a..z)</li>
-            <li>mindestens eine Ziffer (0..9)</li>
-        </ul>
-    </li>
-    <li>Das Passwort und die Bestätigung müssen exakt übereinstimmen.</li>
-</ul>
+    <ul>
+        <li>Benutzernamen dürfen nur Ziffern, Groß- und Kleinbuchstaben und Unterstriche enthalten.</li>
+        <li>E-Mail-Adressen müssen ein gültiges Format haben.</li>
+        <li>Passwörter müssen mindest sechs Zeichen lang sein.</li>
+        <li>Passwörter müssen enthalten
+            <ul>
+                <li>mindestens einen Großbuchstaben (A..Z)</li>
+                <li>mindestens einen Kleinbuchstabenr (a..z)</li>
+                <li>mindestens eine Ziffer (0..9)</li>
+            </ul>
+        </li>
+        <li>Das Passwort und die Bestätigung müssen exakt übereinstimmen.</li>
+    </ul>
 </div>
 
 <form class="form-signin" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>" method="post" name="registration_form">
@@ -85,7 +84,8 @@ if (!empty($error_msg)) {
     <input type="password" name="confirmpwd" id="confirmpwd" class="form-control" placeholder="Passwort wiederholen">
 
     <label for="registrierenbutton" class="sr-only">Registrieren</label>
-    <input id="registrierenbutton" class="btn btn-lg btn-primary btn-block" type="button" value="Registrieren" onclick="return regformhash(this.form, this.form.username, this.form.email, this.form.password, this.form.confirmpwd);">
+    <input id="registrierenbutton" class="btn btn-lg btn-primary btn-block" type="button" value="Registrieren"
+           onclick="return regformhash(this.form, this.form.username, this.form.email, this.form.password, this.form.confirmpwd);">
 </form>
 
 
