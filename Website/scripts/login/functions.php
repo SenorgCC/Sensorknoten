@@ -29,7 +29,7 @@ function login($email, $password, $mysqli) {
     // Das Benutzen vorbereiteter Statements verhindert SQL-Injektion.
     if ($stmt = $mysqli->prepare("SELECT id, username, password, salt 
         FROM members
-       WHERE email = ?
+       WHERE username = ?
         LIMIT 1")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
         $stmt->execute();    // Führe die vorbereitete Anfrage aus.
