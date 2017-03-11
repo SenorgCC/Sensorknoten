@@ -1,5 +1,5 @@
 <?php
-/**
+
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
 
@@ -9,7 +9,7 @@ if (login_check($mysqli) == true) {
     $logged = 'in';
 } else {
     $logged = 'out';
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -24,7 +24,7 @@ if (login_check($mysqli) == true) {
 <body>
 <!--
 <?php
-/**
+
 if (isset($_GET['error'])) {
     echo '<p class="error">Error Logging In!</p>';
 }
@@ -37,7 +37,7 @@ if (isset($_GET['error'])) {
 </form>
 <p>If you don't have a login, please <a href="Register.php">register</a></p>
 <p>If you are done, please <a href="scripts/login/logout.php">log out</a>.</p>
-<p>You are currently logged <?php echo $logged */?>.</p>
+<p>You are currently logged <?php /**echo $logged */?>.</p>
 -->
 
 <div class="container">
