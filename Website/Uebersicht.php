@@ -1,14 +1,8 @@
 <?php
-/**session_start();
- * if(!isset($_SESSION['userid'])) {
- * die('Bitte zuerst <a href="login.php">einloggen</a>');
- * }
- *
- * //Abfrage der Nutzer ID vom Login
- * $userid = $_SESSION['userid'];
- *
- * echo "Hallo User: ".$userid;
- */
+include_once 'scripts/login/db-connect.php';
+include_once 'scripts/login/functions.php';
+
+sec_session_start();
 ?>
 
 
@@ -17,6 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Übersicht</title>
+    <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/flot/jquery.flot.js"></script>
@@ -26,7 +21,7 @@
 
 </head>
 <body>
-
+<?php if (login_check($mysqli) == true) : ?>
 <!-- Beginn Navbar-->
 <nav class="navbar navbar-default" id="navbar">
     <div class="container-fluid">
@@ -53,7 +48,7 @@
             <!-- Rechte Seite der Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="Impressum.php">Impressum</a></li>
-                <li><a href="Alt/Logout_alt.php">Logout</a></li>
+                <li><a href="scripts/login/logout.php">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -64,5 +59,16 @@
         <?php include("scripts/uebersicht/sensordaten.php"); ?>
     </div>
 </div>
+
+<?php else : ?>
+    <div id="loginerror">
+        <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
+        <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
+    </div>
+<?php endif; ?>
+
+
+
+
 </body>
 </html>
