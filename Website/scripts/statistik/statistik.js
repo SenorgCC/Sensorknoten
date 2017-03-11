@@ -53,6 +53,15 @@ $(document).ready(function () {
             }
         });
     });
+    $.post('scripts/statistik/tagesauswahl.php', function (data) {
+
+        data = JSON.parse(data);
+        $.each(data, function (index, value) {
+            if (value != 0) {
+                $('#Zeitraum').append('<option>' + value + '</option>');
+            }
+        });
+    });
     ///TODO: Actiontrigger anpassen
     $('#Sensorknotenauswahl').change(function () {
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
@@ -76,7 +85,8 @@ $(document).ready(function () {
         var Zeit = $('#Zeitraum option:selected').text();
         var sendedata = {
             sensorknoten: Sensorknoten,
-            sensor: Sensor
+            sensor: Sensor,
+            zeit: Zeit
         };
         switch (Sensor){
             case "Temperatur":

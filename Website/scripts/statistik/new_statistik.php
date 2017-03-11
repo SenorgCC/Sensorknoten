@@ -1,6 +1,7 @@
 <?php
 $sensorknoten = $_POST['sensorknoten'];
 $sensorname = $_POST['sensor'];
+$zeit = $_POST['Zeit'];
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
