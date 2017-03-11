@@ -13,9 +13,10 @@ $(document).ready(function () {
     $('#kameraBtn').click(function () {
         var Sensorknoten = $('#kamera option:selected').text();
         var sendedata = {
-            sensorknoten: Sensorknoten,
+            sensorknoten: Sensorknoten
         };
-        $.post('scripts/statistik/new_statistik.php', sendedata, function (data) {
+        $.post('scripts/statistik/kameraadresse.php', sendedata, function (data) {
+            alert(data);
         });
     });
 });
