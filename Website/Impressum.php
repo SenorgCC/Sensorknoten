@@ -59,7 +59,7 @@ sec_session_start();
 
             Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
         </div>
-        <a class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download</a>
+        <a id="impressuminhalt" class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download der Dokumentation</a>
     </div>
 
 <?php else : ?>
