@@ -3,11 +3,11 @@ $(document).ready(function () {
     function zeichneGraph(data, mode, Beschriftung) {
         if (mode == "binär") {
             $.plot("#placeholder", [data], {
-                axisLabels:{
-                   show: true
+                axisLabels: {
+                    show: true
                 },
-                yaxes:[{
-                    axisLabel:Beschriftung
+                yaxes: [{
+                    axisLabel: Beschriftung
                     //axisLabelUseCanvas: true
                 }],
                 xaxis: {
@@ -27,11 +27,11 @@ $(document).ready(function () {
             })
         } else {
             $.plot("#placeholder", [data], {
-                axisLabels:{
+                axisLabels: {
                     show: true
                 },
-                yaxes:[{
-                    axisLabel:Beschriftung
+                yaxes: [{
+                    axisLabel: Beschriftung
                     //axisLabelUseCanvas: true
                 }],
                 xaxis: {
@@ -45,7 +45,6 @@ $(document).ready(function () {
     }
 
     $.post('scripts/statistik/sensorknotenauswahl.php', function (data) {
-
         data = JSON.parse(data);
         $.each(data, function (index, value) {
             if (value != 0) {
@@ -68,8 +67,8 @@ $(document).ready(function () {
                 }
             });
         });
-        $.post('scripts/statistik/tagesauswahl.php',sendedata, function (data) {
-            $('#Zeitraum').append('<option> Woche </option>');
+        $.post('scripts/statistik/tagesauswahl.php', sendedata, function (data) {
+            $('#Zeitraum').append('<option>Woche</option>');
             data = JSON.parse(data);
             $.each(data, function (index, value) {
                 if (value != 0) {
@@ -80,8 +79,7 @@ $(document).ready(function () {
     });
 
     $('#ShowGraphBtn').click(function () {
-        ///TODO: Messdatenselection auf Zeitraum anpassen!
-        var Beschriftung="";
+        var Beschriftung = "";
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
         var Sensor = $('#Sensorauswahl option:selected').text();
         var Zeit = $('#Zeitraum option:selected').text();
@@ -90,35 +88,33 @@ $(document).ready(function () {
             sensor: Sensor,
             zeit: Zeit
         };
-        switch (Sensor){
+        switch (Sensor) {
             case "Temperatur":
-                Beschriftung ="Temperatur in [°C]";
+                Beschriftung = "Temperatur in [°C]";
                 break;
             case "Luftfeuchtigkeit":
-                Beschriftung ="Luftfeuchtigkeit in [%]";
+                Beschriftung = "Luftfeuchtigkeit in [%]";
                 break;
             case "Flammsensor":
-                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                Beschriftung = "Binäre Darstellung 1 = True und 0 = False";
                 break;
             case "Lichtschranke":
-                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                Beschriftung = "Binäre Darstellung 1 = True und 0 = False";
                 break;
             case "Mikrofon":
-                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                Beschriftung = "Binäre Darstellung 1 = True und 0 = False";
                 break;
             case "Lichtsensor":
-                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                Beschriftung = "Binäre Darstellung 1 = True und 0 = False";
                 break;
             case "Schocksensor":
-                Beschriftung ="Binäre Darstellung 1 = True und 0 = False";
+                Beschriftung = "Binäre Darstellung 1 = True und 0 = False";
                 break;
             default:
                 alert("Nicht bekannter Sensor!");
                 return;
         }
-        alert (Beschriftung);
         $.post('scripts/statistik/new_statistik.php', sendedata, function (data) {
-            ///TODO: Dictionary anschauen! Zuweisung Sensor und Beschreibung!
             var mode = 0;
             data = JSON.parse(data);
             // Stichprobentest, erste Position vom Array ist bisher 0, daher muss die 2. genommen werden
@@ -135,9 +131,7 @@ $(document).ready(function () {
                 }
             }
             zeichneGraph(data, mode, Beschriftung);
-
         });
-
     });
 
     // Testbeladung!
@@ -155,5 +149,4 @@ $(document).ready(function () {
             max: (new Date("2020-03-10 23:25:23")).getTime()
         })
     });
-
 });
