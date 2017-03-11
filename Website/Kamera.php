@@ -62,7 +62,8 @@ sec_session_start();
         <br>
         <button type="button" class="btn btn-default" id="kameraBtn">Auswahl</button>
         <br>
-        <div id="kameraanzeige">
+        <br>
+        <div id="kameraanzeige"  class="embed-responsive embed-responsive-16by9">
         </div>
     </div>
 

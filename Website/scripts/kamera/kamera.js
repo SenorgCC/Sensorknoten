@@ -19,12 +19,9 @@ $(document).ready(function () {
             //Der Post liefert ein Array, an dem die erste stelle null ist, in der 2. ist der echte Wert
             data = JSON.parse(data);
             var IP_Adresse = JSON.stringify(data[1]);
-            alert(IP_Adresse);
+            alert(data);
             $('#kameraanzeige').empty();
-            $('#kameraanzeige').append(
-                '<iframe src="192.168.178.12:8081" ' +
-                'width="100%" height="100%" frameborder="0" ' +
-                'allowTransparency="true">' +
+            $('#kameraanzeige').append('<iframe src="http://192.168.178.12:8081" class="embed-responsive-item">' +
                 '</iframe>'
             );
         });
