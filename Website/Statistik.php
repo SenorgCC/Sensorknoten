@@ -66,9 +66,7 @@
             <p>Zeitraum:</p>
             <select class="form-control" id="Zeitraum">
                 <!--PHP FUNKTION FÜR OPTIONEN-->
-                <option>Tag</option>
                 <option>Woche</option>
-                <option>Monat</option>
             </select>
         </div>
     </div>

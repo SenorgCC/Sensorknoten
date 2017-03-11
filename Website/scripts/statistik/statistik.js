@@ -53,16 +53,27 @@ $(document).ready(function () {
             }
         });
     });
+
     ///TODO: Actiontrigger anpassen
     $('#Sensorknotenauswahl').change(function () {
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
         var sendedata = {name: Sensorknoten};
         $('#Sensorauswahl').empty();
+        $('#Zeitraum').empty();
         $.post('scripts/statistik/sensorauswahl.php', sendedata, function (data) {
             data = JSON.parse(data);
             $.each(data, function (index, value) {
                 if (value != 0) {
                     $('#Sensorauswahl').append('<option>' + value + '</option>');
+                }
+            });
+        });
+        $.post('scripts/statistik/tagesauswahl.php',sendedata, function (data) {
+            $('#Zeitraum').append('<option> Woche </option>');
+            data = JSON.parse(data);
+            $.each(data, function (index, value) {
+                if (value != 0) {
+                    $('#Zeitraum').append('<option>' + value + '</option>');
                 }
             });
         });
@@ -76,7 +87,8 @@ $(document).ready(function () {
         var Zeit = $('#Zeitraum option:selected').text();
         var sendedata = {
             sensorknoten: Sensorknoten,
-            sensor: Sensor
+            sensor: Sensor,
+            zeit: Zeit
         };
         switch (Sensor){
             case "Temperatur":
