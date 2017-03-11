@@ -14,7 +14,7 @@ sec_session_start();
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-
+    <script src="scripts/kamera/kamera.js"></script>
 </head>
 <body>
 <?php if (login_check($mysqli) == true) : ?>
