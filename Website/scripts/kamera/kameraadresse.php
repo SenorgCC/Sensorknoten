@@ -8,7 +8,6 @@ if ($mysqli->connect_errno) {
 $query = "SELECT IPv4_Adresse AS IP FROM Sensorknoten WHERE Knotennamen = '".$sensorknoten."';";
 $result = $mysqli->query($query);
 $resultdata[] = array();
-$i = 0;
 while ($row = $result->fetch_assoc()) {
     array_push($resultdata, $row['IP']);
 }

@@ -13,7 +13,7 @@ if($zeit == "Woche"){
                                 inner join Messwerte as M on (SM.MESS_ID = M.MESS_ID)
                                 inner join Sensoren as S on (M.SEN_ID = S.SEN_ID)
                            WHERE Knotennamen = '".$sensorknoten."'
-                           AND Sensorname = '".$sensorname.'";";
+                           AND Sensorname = '".$sensorname."';";
 }else{
     $query = "Select Timestamp, Messwert from Sensorknoten SK
                                 inner join Sensorknoten_Messwerte as SM on (SK.KN_ID = SM.KN_ID)
