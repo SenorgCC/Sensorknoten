@@ -1,8 +1,8 @@
 <?php
-/**
+
 include_once 'scripts/login/register_inc.php';
 include_once 'scripts/login/functions.php';
- */
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -21,10 +21,10 @@ include_once 'scripts/login/functions.php';
 oder wenn das Anmelde-Skript einen Fehler verursacht hat. -->
 <!--
 <h1>Register with us</h1>
-<?php/**
+<?php
 if (!empty($error_msg)) {
     echo $error_msg;
-}*/
+}
 ?>
 <ul>
     <li>Benutzernamen dürfen nur Ziffern, Groß- und Kleinbuchstaben und Unterstriche enthalten.</li>
@@ -79,7 +79,7 @@ if (!empty($error_msg)) {
     <input id="email" name="email" class="form-control" placeholder="Email-Adresse">
 
     <label for="inputPassword" class="sr-only">Passwort</label>
-    <input type="password" name="passwort" id="Password" class="form-control" placeholder="Passwort">
+    <input type="password" name="password" id="Password" class="form-control" placeholder="Passwort">
 
     <label for="inputPassword2" class="sr-only">Passwort wiederholen</label>
     <input type="password" name="confirmpwd" id="confirmpwd" class="form-control" placeholder="Passwort wiederholen">

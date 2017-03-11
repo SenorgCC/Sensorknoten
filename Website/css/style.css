@@ -8,6 +8,12 @@
 #passwortanforderungen {
     text-align: center;
 }
+#registrierungerfolgreich {
+    text-align: center;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
 
 .form-signin-heading{
     text-align: center;
