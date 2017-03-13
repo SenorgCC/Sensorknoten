@@ -57,7 +57,6 @@ sec_session_start();
                 Es wurden keine anderen als in der Dokumentation genannten Quellen verwendet.<br>
                 Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer</p>
         </div>
-        <br>
         <a id="impressuminhalt" class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download der
             Dokumentation</a>
     </div>
