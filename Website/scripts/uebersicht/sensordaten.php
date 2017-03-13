@@ -52,6 +52,7 @@ ORDER BY SEN_ID";
             $timestamp[7] = $row2->Timestamp;
         }
     }
+
     echo "<h2 class=\"sub-header\"> " . $row['Knotennamen'] . "</h2>";
     echo "<div class=\"table-responsive\">";
     echo "    <table class=\"table table-striped\">";
