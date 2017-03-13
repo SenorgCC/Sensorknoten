@@ -21,15 +21,14 @@ FROM(
         INNER JOIN Sensorknoten_Messwerte AS SM ON(SK . KN_ID = SM . KN_ID)
          INNER JOIN Messwerte AS M ON(SM . MESS_ID = M . MESS_ID)
     INNER JOIN Sensoren S ON(M . SEN_ID = S . SEN_ID) 
-    WHERE Knotennamen = '".$Knotennamen."'
+    WHERE Knotennamen = '" . $Knotennamen . "'
     ORDER BY Timestamp desc
 ) AS sub
 GROUP BY Sensorname
 ORDER BY SEN_ID";
     $result2 = $mysqli->query($select);
+    $timestamp = array();
     while ($row2 = $result2->fetch_object()) {
-
-        $timestamp = array();
         if ($row2->SEN_ID == '1') {
             $Temperatur = $row2->Messwert . "°C";
             $timestamp[1] = $row2->Timestamp;

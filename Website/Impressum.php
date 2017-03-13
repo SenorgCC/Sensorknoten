@@ -51,7 +51,7 @@ sec_session_start();
     </nav>
     <div class="container">
         <div id="impressuminhalt">
-            <img src="Bilder/dhbw-logo.png" alt="Logo DHBW" class="img-responsive"> <br>
+            <img src="Bilder/dhbw-logo.png" alt="Logo DHBW" class="img-responsive" style="margin: auto"> <br>
             <p>Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen
             Hochschule Baden-Württemberg erstellt.<br>
             Es wurden keine anderen als in der Dokumentation genannten Quellen verwendet.<br>
