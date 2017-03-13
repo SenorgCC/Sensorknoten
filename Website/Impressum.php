@@ -51,15 +51,13 @@ sec_session_start();
     </nav>
     <div class="container">
         <div id="impressuminhalt">
-            <img src="Bilder/dhbw-logo.png" alt="Logo DHBW"> <br>
-            Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen
+            <img src="Bilder/dhbw-logo.png" alt="Logo DHBW" class="img-responsive"> <br>
+            <p>Dieses Projekt wurde im Rahmen der Studienarbeit "Entwicklung eines Sensorknotens für IoT" an der Dualen
             Hochschule Baden-Württemberg erstellt.<br>
             Es wurden keine anderen als in der Dokumentation genannten Quellen verwendet.<br>
-
-
-            Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer
-            <br>
+                Jan Mannherz, Alexander Sinicyn und Harm-Christian Schweizer</p>
         </div>
+        <br>
         <a id="impressuminhalt" class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download der Dokumentation</a>
     </div>
 
