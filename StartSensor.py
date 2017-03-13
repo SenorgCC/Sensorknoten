@@ -16,12 +16,12 @@ A3 = 0xA3
 sensor1 = Sensor(1, None, 25)
 sensor2 = Sensor(2, None, 25)
 
-# Init Mikrofon KY-038
-sensor3 = Sensor(3, A0, 18)
+# Flammensensor KY-026
+sensor3 = Sensor(3, A1, 17)
 # Lichtschranke KY-010
 sensor4 = Sensor(4, None, 24)
-# Flammensensor KY-026
-sensor5 = Sensor(5, A1, 17)
+# Mikrofon KY-038
+sensor5 = Sensor(5, A0, 18)
 # Lichtsensor KY-018
 sensor6 = Sensor(6, A2, None)
 # Schocksensor TAP-Module
@@ -37,8 +37,8 @@ counter = 0
 
 try:
     while True:
-        sensor5.flammensensor()
-        sensor3.mikrofon()
+        sensor5.mikrofon()
+        sensor3.flammensensor()
         if counter == 2:
             sensor6.lichtsensor()
 

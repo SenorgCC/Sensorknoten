@@ -56,7 +56,7 @@ sec_session_start();
 </nav>
 <!-- Ende Navbar-->
 
-<div class="container">
+<div class="container" >
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <p>Sensorknoten:</p>
@@ -79,10 +79,13 @@ sec_session_start();
         </div>
     </div>
     <br>
+    <br>
     <button id="ShowGraphBtn" type="button" class="btn btn-default">Auswahl</button>
 
     </br>
-    <div id='placeholder' style="width:600px;height:300px">
+    <div class="embed-responsive embed-responsive-16by9">
+        <div id='placeholder' class="embed-responsive-item" style="width:600px;height:300px">
+        </div>
     </div>
 </div>
 
