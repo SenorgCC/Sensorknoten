@@ -251,6 +251,10 @@ class Sensor:
         host = '192.168.178.1'
         #TODO: Anstendigen Port aussuchen !
         port = 12345
-        s.connect((host, port))
-        s.sendto(json_data.encode('utf-8'), (host, port))
-        s.close()
+        try:
+            s.connect((host, port))
+            s.sendto(json_data.encode('utf-8'), (host, port))
+            s.close()
+        except socket.error:
+            print("Server nicht erreichbar!")
+            return

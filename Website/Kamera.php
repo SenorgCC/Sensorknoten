@@ -67,7 +67,6 @@ sec_session_start();
         </div>
     </div>
 
-
 <?php else : ?>
     <div id="loginerror">
         <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
