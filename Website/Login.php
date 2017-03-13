@@ -26,13 +26,13 @@ if (login_check($mysqli) == true) {
 <div class="container">
     <form class="form-signin" action="scripts/login/process_login.php" method="post" name="login_form">
         <h2 class="form-signin-heading">Sensorüberwachung</h2>
-
+        <br>
         <label for="inputname" class="sr-only">Name</label>
         <input type="name" name="email" id="inputname" class="form-control" placeholder="Name" autofocus>
-
+        <br>
         <label for="inputPassword" class="sr-only">Passwort</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
-
+        <br>
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Einloggen"
                onclick="formhash(this.form, this.form.password);"/>
 
