@@ -50,7 +50,7 @@ $(document).ready(function () {
                 text: Beschriftung
             },
             data: [{
-                type: "splineArea",
+                type: mode,
                 dataPoints: data
             }]
         });
@@ -101,6 +101,7 @@ $(document).ready(function () {
             sensor: Sensor,
             zeit: Zeit
         };
+        var plotData=[];
         switch (Sensor) {
             case "Temperatur":
                 Beschriftung = "Temperatur in [°C]";
@@ -132,8 +133,9 @@ $(document).ready(function () {
             data = JSON.parse(data);
             // Stichprobentest, erste Position vom Array ist bisher 0, daher muss die 2. genommen werden
             if (data[1][1] == "TRUE" || data[1][1] == "FALSE") {
-                mode = "binär";
-
+                mode = "column";
+            }else{
+                mode = "splineArea"
             }
             for (var i = 0; i < data.length; i++) {
                 data[i][0] = new Date(data[i][0]);
@@ -141,9 +143,12 @@ $(document).ready(function () {
                     data[i][1] = 1;
                 } else if (data[i][1] == "FALSE") {
                     data[i][1] = 0;
+                }else{
+                    data[i][1] = parseFloat(data[i][1]);
                 }
+                plotData.push({x: data[i][0], y:data[i][1]})
             }
-            zeichneGraph(data, mode, Beschriftung);
+            zeichneGraph(plotData, mode, Beschriftung);
         });
     });
 
