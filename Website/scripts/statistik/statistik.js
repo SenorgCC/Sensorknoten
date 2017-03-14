@@ -1,49 +1,5 @@
 $(document).ready(function () {
-    //var daten=[];
-    /*function zeichneGraph(data, mode, Beschriftung) {
-        if (mode == "binär") {
-            $.plot("#placeholder", [data], {
-                axisLabels: {
-                    show: true
-                },
-                yaxes: [{
-                    axisLabel: Beschriftung
-                    //axisLabelUseCanvas: true
-                }],
-                xaxis: {
-                    mode: "time",
-                    timeformat: "%y-%m-%d %H:%M:%S"
-                },
-                bars: {
-                    show: true,
-                    fill: true,
-                    align: "center",
-                    barWidth: 100
-                },
-                lines: {show: false},
-
-                min: (new Date("2015-03-02 00:00:00")).getTime(),
-                max: (new Date("2020-03-10 23:25:23")).getTime()
-            })
-        } else {
-            $.plot("#placeholder", [data], {
-                axisLabels: {
-                    show: true
-                },
-                yaxes: [{
-                    axisLabel: Beschriftung
-                    //axisLabelUseCanvas: true
-                }],
-                xaxis: {
-                    mode: "time",
-                    timeformat: "%y-%m-%d %H:%M:%S"
-                },
-                min: (new Date("2015-03-02 00:00:00")).getTime(),
-                max: (new Date("2020-03-10 23:25:23")).getTime()
-            })
-        }
-    }
-*/
+    // Zeichnet den Graphen
     function zeichneGraph(data, mode, Beschriftung) {
         var chart = new CanvasJS.Chart("chartContainer", {
             title: {
@@ -57,6 +13,7 @@ $(document).ready(function () {
         chart.render();
     }
 
+    // Erstellt den Inhalt des Dropdowns für die Sensorknotenauswahl
     $.post('scripts/statistik/sensorknotenauswahl.php', function (data) {
         data = JSON.parse(data);
         $.each(data, function (index, value) {
@@ -65,8 +22,7 @@ $(document).ready(function () {
             }
         });
     });
-
-    ///TODO: Actiontrigger anpassen
+    // Erstellt den Inhalt des Dropdowns für die Sensoren in Abhängigkeit des Sensorknotens
     $('#Sensorknotenauswahl').change(function () {
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
         var sendedata = {name: Sensorknoten};
@@ -80,6 +36,7 @@ $(document).ready(function () {
                 }
             });
         });
+        // Erstellt den Inhalt des Dropdowns für den Zeitraum in Abhängigkeit des Sensorknotens
         $.post('scripts/statistik/tagesauswahl.php', sendedata, function (data) {
             $('#Zeitraum').append('<option>Woche</option>');
             data = JSON.parse(data);
@@ -90,7 +47,7 @@ $(document).ready(function () {
             });
         });
     });
-
+    // Logik für die Generierung der Daten des Graphens
     $('#ShowGraphBtn').click(function () {
         var Beschriftung = "";
         var Sensorknoten = $('#Sensorknotenauswahl option:selected').text();
@@ -101,7 +58,7 @@ $(document).ready(function () {
             sensor: Sensor,
             zeit: Zeit
         };
-        var plotData=[];
+        var plotData = [];
         switch (Sensor) {
             case "Temperatur":
                 Beschriftung = "Temperatur in [°C]";
@@ -128,13 +85,13 @@ $(document).ready(function () {
                 alert("Nicht bekannter Sensor!");
                 return;
         }
-        $.post('scripts/statistik/new_statistik.php', sendedata, function (data) {
+        $.post('scripts/statistik/statistik.php', sendedata, function (data) {
             var mode = 0;
             data = JSON.parse(data);
             // Stichprobentest, erste Position vom Array ist bisher 0, daher muss die 2. genommen werden
             if (data[1][1] == "TRUE" || data[1][1] == "FALSE") {
                 mode = "column";
-            }else{
+            } else {
                 mode = "splineArea"
             }
             for (var i = 0; i < data.length; i++) {
@@ -143,35 +100,12 @@ $(document).ready(function () {
                     data[i][1] = 1;
                 } else if (data[i][1] == "FALSE") {
                     data[i][1] = 0;
-                }else{
+                } else {
                     data[i][1] = parseFloat(data[i][1]);
                 }
-                plotData.push({x: data[i][0], y:data[i][1]})
+                plotData.push({x: data[i][0], y: data[i][1]})
             }
             zeichneGraph(plotData, mode, Beschriftung);
         });
     });
-
-    // Testbeladung!
-    $.post('scripts/statistik/statistik.php', function (data) {
-        data = JSON.parse(data);
-        var dataPoints = [];
-        for (var i = 0; i < data.length; i++) {
-            data[i][0] = new Date(data[i][0]);
-            dataPoints.push({x: data[i][0], y: parseFloat(data[i][1])});
-        }
-        dataPoints.shift();
-        alert((dataPoints[0].y));
-        var chart = new CanvasJS.Chart("chartContainer", {
-            title: {
-                text: "Spline Area Chart"
-            },
-            data: [{
-                    type: "splineArea",
-                    dataPoints: dataPoints
-            }]
-        });
-        chart.render();
-    });
-
 });

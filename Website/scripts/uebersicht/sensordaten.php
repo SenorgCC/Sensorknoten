@@ -1,5 +1,7 @@
 <?php
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+// Dynamische Generierung der Sensorübersicht
+include_once "../../scripts/login/psl-config.php";
+@$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
@@ -8,6 +10,7 @@ $query = "SELECT Knotennamen FROM Sensorknoten";
 $result = $mysqli->query($query);
 while ($row = $result->fetch_assoc()) {
     $Knotennamen = $row['Knotennamen'];
+    // Alle Sensoren werden mit "Nicht Angeschlossen" initialsiert
     $Temperatur = "Nicht Angeschlossen";
     $Luftfeuchtigkeit = "Nicht Angeschlossen";
     $Flammsensor = "Nicht Angeschlossen";
@@ -15,7 +18,8 @@ while ($row = $result->fetch_assoc()) {
     $Mikrofon = "Nicht Angeschlossen";
     $Lichtschranke = "Nicht Angeschlossen";
     $Schocksensor = "Nicht Angeschlossen";
-    $select = "SELECT *
+    // Query liefert die aktuellsten Messwerte der Sensoren eines Sensorknotens zurück
+    $query2 = "SELECT *
 FROM(
     SELECT Messwert, Timestamp, M . SEN_ID, Sensorname FROM Sensorknoten SK
         INNER JOIN Sensorknoten_Messwerte AS SM ON(SK . KN_ID = SM . KN_ID)
@@ -26,8 +30,9 @@ FROM(
 ) AS sub
 GROUP BY Sensorname
 ORDER BY SEN_ID";
-    $result2 = $mysqli->query($select);
+    $result2 = $mysqli->query($query2);
     $timestamp = array();
+    // Auswertung und Zuteilung der Sensordaten
     while ($row2 = $result2->fetch_object()) {
         if ($row2->SEN_ID == '1') {
             $Temperatur = $row2->Messwert . "°C";
@@ -52,7 +57,7 @@ ORDER BY SEN_ID";
             $timestamp[7] = $row2->Timestamp;
         }
     }
-
+    // Dynamisches erstellen der HTML-Tabelle
     echo "<h2 class=\"sub-header\"> " . $row['Knotennamen'] . "</h2>";
     echo "<div class=\"table-responsive\">";
     echo "    <table class=\"table table-striped\">";
@@ -80,7 +85,6 @@ ORDER BY SEN_ID";
     echo "        </tbody>";
     echo "    </table>";
     echo "</div>";
-    // Evtl. Optinal, da Webcam und Statistik TAB
     echo "<p>Livekamera: <a href='../Kamera.php' target=\"_blank\"><span class =\"glyphicon glyphicon-facetime-video\"</span></a></p>";
     echo "<p>Statistiken: <a href='../Statistik.php' target=\"_blank\" ><span class =\"glyphicon glyphicon-stats\"</span></a></p>";
 }

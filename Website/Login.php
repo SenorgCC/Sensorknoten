@@ -1,16 +1,17 @@
+<!-- Anzeige des Logins -->
 <?php
-
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
-
+//Start der Session
 sec_session_start();
-
+//Überprüfung des Logins
 if (login_check($mysqli) == true) {
     $logged = 'in';
 } else {
     $logged = 'out';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -22,7 +23,6 @@ if (login_check($mysqli) == true) {
     <script type="text/JavaScript" src="scripts/login/js/forms.js"></script>
 </head>
 <body>
-
 <div class="container">
     <form class="form-signin" action="scripts/login/process_login.php" method="post" name="login_form">
         <h2 class="form-signin-heading">Sensorüberwachung</h2>
@@ -38,18 +38,14 @@ if (login_check($mysqli) == true) {
 
         <a class="btn btn-lg btn-primary btn-block" href="Register.php">Registrieren</a>
     </form>
-
-
-
     <div id="loginerror">
         <?php
+        //Fehlerausgabe Login
         if (isset($_GET['error'])) {
             echo '<p class="error">Der Login ist fehlgeschlagen</p>';
         }
         ?>
     </div>
 </div>
-
-
 </body>
 </html>
