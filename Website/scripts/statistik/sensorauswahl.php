@@ -1,4 +1,5 @@
 <?php
+// Selektiert alle verfügbaren Sensoren
 $sensorknoten = $_POST['name'];
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
