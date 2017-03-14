@@ -1,10 +1,10 @@
+<!--Anzeige der Übersicht mit Sensorwerten, die alle 5sec. aktualisiert werden. Erste Seite nach Login -->
 <?php
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
-
+//Start der Session
 sec_session_start();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="de">
@@ -18,10 +18,12 @@ sec_session_start();
     <script src="sources/flot/jquery.flot.time.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/uebersicht/uebersichtscript.js"></script>
-
 </head>
 <body>
-<?php if (login_check($mysqli) == true) : ?>
+<?php
+    // Überprüfung Userlogin
+    if (login_check($mysqli) == true) :
+?>
     <!-- Beginn Navbar-->
     <nav class="navbar navbar-default" id="navbar">
         <div class="container-fluid">
@@ -36,7 +38,6 @@ sec_session_start();
                 </button>
                 <a class="navbar-brand" href="Uebersicht.php">Sensorübersicht</a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <!-- Linke Seite der Navbar -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -57,17 +58,22 @@ sec_session_start();
     <!-- Ende Navbar-->
     <div class="container">
         <div id="datentabelle">
-            <?php include("scripts/uebersicht/sensordaten.php"); ?>
+            <?php
+                //Einfügen und Anzeige der Logik
+                include("scripts/uebersicht/sensordaten.php");
+            ?>
         </div>
     </div>
-
-<?php else : ?>
+<?php
+    // Meldung bei nicht eingeloggtem User
+    else :
+?>
     <div id="loginerror">
         <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
         <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
     </div>
-<?php endif; ?>
-
-
+<?php
+    endif;
+?>
 </body>
 </html>
