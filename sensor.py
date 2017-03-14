@@ -1,8 +1,6 @@
 from Adafruit_ADS1x15 import ADS1x15
 import Adafruit_DHT
-
 from time import sleep
-
 import time, signal, sys, os, math
 import RPi.GPIO as GPIO
 import smbus
@@ -11,7 +9,7 @@ import json
 
 class Sensor:
     # Dictionary fuer die Zuweisung von ID und Sensorname
-    #Sensorliste = {1: "Temperatursensor",
+    # Sensorliste = {1: "Temperatursensor",
     #              2: "Luftfeuchtigkeit",
     #              3: "Flammensensor",
     #              4: "Lichtschranke",
@@ -22,20 +20,14 @@ class Sensor:
     def __init__(self, SEN_ID, Analog_PIN, Digital_PIN):
         self.SEN_ID = SEN_ID
         self.Sensorname = socket.gethostname()
-        self.Messwert=""
-        self.Status=0
+        self.Messwert = ""
+        self.Status = 0
         self.Analog_PIN = Analog_PIN
         self.Digital_PIN = Digital_PIN
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        delayTime = 0.5
-        #ADS1115 = 0x01
-        #self.gain = 4095
-        #self.sps = 250
-        #self.adc_channel = self.Analog_PIN
-        #self.adc =ADS1x15(ic=ADS1115)
-        GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down = GPIO.PUD_OFF)
-        # Neu Umsetzung mit dem pcf8591 AD-Wandler
+        GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
+        # Umsetzung mit dem pcf8591 AD-Wandler
         self.bus = smbus.SMBus(1)
         self.address = 0x48
 
@@ -49,13 +41,13 @@ class Sensor:
         GPIO.add_event_detect(self.Digital_PIN, GPIO.BOTH, callback=self.flammen_mikro_event, bouncetime=100)
 
     def eventhandler(self, null):
-            self.Status = 1
-            sensor_information = {"Name": self.Sensorname,
-                                  "SEN_ID": self.SEN_ID,
-                                  "Status": self.Status,
-                                  "Messwert": "TRUE"}
-            json_data = json.dumps(sensor_information)
-            self.senden(json_data)
+        self.Status = 1
+        sensor_information = {"Name": self.Sensorname,
+                              "SEN_ID": self.SEN_ID,
+                              "Status": self.Status,
+                              "Messwert": "TRUE"}
+        json_data = json.dumps(sensor_information)
+        self.senden(json_data)
 
     def flammen_mikro_event(self, null):
         self.Status = 1
@@ -63,6 +55,7 @@ class Sensor:
         Analog_Wert = self.bus.read_byte(self.address)
         Digital_Wert = GPIO.input(self.Digital_PIN)
         if Digital_Wert == 1:
+            #TODO: Kalibrierung
             if Analog_Wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -90,6 +83,7 @@ class Sensor:
 
     def sensorcheck_analog(self):
         self.bus.write_byte(self.address, self.Analog_PIN)
+        # TODO: Kalibrierung
         if self.bus.read_byte(self.address) > 10:
             return True
         else:
@@ -102,6 +96,7 @@ class Sensor:
             Analog_Wert = self.bus.read_byte(self.address)
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
+            # TODO: Kalibrierung
             if Digital_Wert == 1 and Analog_Wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -133,12 +128,11 @@ class Sensor:
             return
 
     def temperatur(self):
-        #humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
-        #Read_Retry versucht innerhalb von 15 Sekunden Messungen durchzufuehren und gibt das Ergebnis aus
-        #als ein array, wo humidity, temp angegeben werden
+        # humidity, temperatur = Adafruit_DHT.read_retry(11, 4)
+        # Read_Retry versucht innerhalb von 15 Sekunden Messungen durchzufuehren und gibt das Ergebnis aus
+        # als ein array, wo humidity, temp angegeben werden
         temperatur = Adafruit_DHT.read_retry(11, self.Digital_PIN)[1]
         # Die Messtemperatur muss zwischen 0 und 50C liegen, sonst ist der Sensor defekt
-
         if 0 < temperatur <= 50:
             self.Status = 1
             self.Messwert = str(temperatur)
@@ -183,7 +177,7 @@ class Sensor:
             analog_wert = self.bus.read_byte(self.address)
 
             Digital_Wert = GPIO.input(self.Digital_PIN)
-
+            # TODO: Kalibrierung
             if Digital_Wert == 1 and analog_wert < 200:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
@@ -219,6 +213,7 @@ class Sensor:
         if self.sensorcheck_analog():
             self.bus.write_byte(self.address, self.Analog_PIN)
             analog_wert = self.bus.read_byte(self.address)
+            # TODO: Kalibrierung
             if analog_wert <= 50:
                 self.Messwert = "TRUE"
                 self.Status = 1
@@ -230,16 +225,16 @@ class Sensor:
                 self.Status = 2
 
             sensor_information = {"Name": self.Sensorname,
-                                "SEN_ID": self.SEN_ID,
-                                "Status": self.Status,
-                                "Messwert": self.Messwert}
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": self.Messwert}
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
         else:
             return
 
     def lichtschranke(self):
-        #Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
+        # Eventgesteuertes Ereigniss wird mit der fallenden Flanke ausgeloest
         GPIO.add_event_detect(self.Digital_PIN, GPIO.FALLING, callback=self.eventhandler, bouncetime=100)
 
     def schocksensor(self):
@@ -249,7 +244,6 @@ class Sensor:
     def senden(self, json_data):
         s = socket.socket()
         host = '192.168.178.1'
-        #TODO: Anstendigen Port aussuchen !
         port = 12345
         try:
             s.connect((host, port))
