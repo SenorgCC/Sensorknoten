@@ -50,10 +50,45 @@ sec_session_start();
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container">
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo"
+                title='Hier können Sie die Webcams aktivieren/deaktivieren'>
+            <span class="glyphicon glyphicon-cog"></span>
+        </button>
+        <br>
+        <div id="demo" class="collapse img-rounded table-bordered" style="background-color:#f9f2f4">
+            <div class="btn-group btn-group-justified" role="group" aria-label="..." style="margin: 5px">
+                <div class="btn-group" role="group">
+                    <p>Sensorknoten:</p>
+                    <select class="form-control" id="Sensorknotenauswahl">
+                        <option>Bitte Sensorknoten auswählen</option>
+                    </select>
+                </div>
+                <div class="btn-group" role="group">
+                    <p>Auswahl:</p>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="..." style="margin: 5px"
+                         id="auswahl">
+                        <div class="btn-group" role="group">
+                            <label><input type="radio" name="optradio" value="1"><span
+                                        class="glyphicon glyphicon-ok"></span></label>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <label><input type="radio" name="optradio" value="0"><span
+                                        class="glyphicon glyphicon-remove"></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button type="button" class="btn btn-default" id="speichernBtn" style="margin: 5px">Speichern</button>
+            <br>
+        </div>
+    </div>
+    <div class="container">
         <div class="btn-group" role="group" aria-label="...">
             <div class="btn-group" role="group">
                 <p>Sensorknoten:</p>
                 <select class="form-control" id="kamera">
+                    <option>Bitte Sensorknoten auswählen</option>
                     <!--PHP FUNKTION FÜR OPTIONEN-->
                 </select>
             </div>
@@ -63,7 +98,7 @@ sec_session_start();
         <button type="button" class="btn btn-default" id="kameraBtn">Auswahl</button>
         <br>
         <br>
-        <div id="kameraanzeige"  class="embed-responsive embed-responsive-16by9">
+        <div id="kameraanzeige" class="embed-responsive embed-responsive-16by9">
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 <?php
-$sensorknoten = $_POST['name'];
+$sensorknoten = $_POST['sensorknoten'];
 $kameramodus = $_POST['mode'];
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
