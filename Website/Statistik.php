@@ -21,6 +21,8 @@ sec_session_start();
     <script src="sources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/statistik/statistik.js"></script>
+    <script src="sources/canvasJS/canvasjs.min.js"></script>
+    <script src="sources/canvasJS/jquery.canvasjs.min.js"></script>
 
 </head>
 <body>
@@ -86,7 +88,7 @@ sec_session_start();
     <br>
     </br>
     <div>
-        <div id='placeholder' style="width:600px;height:300px">
+        <div id='chartContainer'>
         </div>
     </div>
 </div>
