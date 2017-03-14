@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //var daten=[];
-    function zeichneGraph(data, mode, Beschriftung) {
+    /*function zeichneGraph(data, mode, Beschriftung) {
         if (mode == "binär") {
             $.plot("#placeholder", [data], {
                 axisLabels: {
@@ -42,6 +42,19 @@ $(document).ready(function () {
                 max: (new Date("2020-03-10 23:25:23")).getTime()
             })
         }
+    }
+*/
+    function zeichneGraph(data, mode, Beschriftung) {
+        var chart = new CanvasJS.Chart("chartContainer", {
+            title: {
+                text: Beschriftung
+            },
+            data: [{
+                type: "splineArea",
+                dataPoints: data
+            }]
+        });
+        chart.render();
     }
 
     $.post('scripts/statistik/sensorknotenauswahl.php', function (data) {
@@ -123,7 +136,7 @@ $(document).ready(function () {
 
             }
             for (var i = 0; i < data.length; i++) {
-                data[i][0] = new Date(data[i][0]).getTime();
+                data[i][0] = new Date(data[i][0]);
                 if (data[i][1] == "TRUE") {
                     data[i][1] = 1;
                 } else if (data[i][1] == "FALSE") {
@@ -139,20 +152,21 @@ $(document).ready(function () {
         data = JSON.parse(data);
         var dataPoints = [];
         for (var i = 0; i < data.length; i++) {
-            data[i][0] = new Date(data[i][0]).getTime();
-            dataPoints.push({x: data[i][0], y:data[i][1]});
+            data[i][0] = new Date(data[i][0]);
+            dataPoints.push({x: data[i][0], y: parseFloat(data[i][1])});
         }
+        dataPoints.shift();
+        alert((dataPoints[0].y));
         var chart = new CanvasJS.Chart("chartContainer", {
-            titel:{
-                text: "Temperatur"
+            title: {
+                text: "Spline Area Chart"
             },
-            data: [
-                {
+            data: [{
                     type: "splineArea",
                     dataPoints: dataPoints
-                }
-            ]
+            }]
         });
         chart.render();
     });
+
 });
