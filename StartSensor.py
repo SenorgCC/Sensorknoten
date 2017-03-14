@@ -1,8 +1,6 @@
 from sensor import Sensor
 import time
 # Dieses Programm dient zum Initialisieren und Steuern von Sensoren
-
-
 # Initialisierung des Sensors
 # Sensor(SEN_ID, Analog_PIN, Digital_PIN)
 # Zuweisung der Analoganschluesse fuer den ADWandler
@@ -15,7 +13,6 @@ A3 = 0xA3
 # DHT11 - Luftfeuchtigkeit und Temperatur
 sensor1 = Sensor(1, None, 25)
 sensor2 = Sensor(2, None, 25)
-
 # Flammensensor KY-026
 sensor3 = Sensor(3, A1, 17)
 # Lichtschranke KY-010
@@ -41,12 +38,10 @@ try:
         sensor3.flammensensor()
         if counter == 2:
             sensor6.lichtsensor()
-
         if counter == 4:
             sensor1.temperatur()
             sensor2.luftfeuchtigkeit()
             counter = 0
-
         counter += 1
         time.sleep(2)
 
