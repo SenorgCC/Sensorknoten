@@ -12,13 +12,7 @@ sec_session_start();
     <title>Statistik</title>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
-    <link href="sources/jquery-ui-1.12.1/jquery-ui.min.css" type="text/css">
     <script src="sources/jquery-3.1.1.min.js"></script>
-    <script src="sources/flot/jquery.flot.js"></script>
-    <script src="sources/flot/jquery.flot.time.js"></script>
-    <script src="sources/flot/jquery.flot.axislabels.js"></script>
-    <script src="sources/flot/jquery.flot.resize.js"></script>
-    <script src="sources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
     <script src="scripts/statistik/statistik.js"></script>
     <script src="sources/canvasJS/canvasjs.min.js"></script>
