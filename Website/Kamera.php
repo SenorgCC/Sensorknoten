@@ -1,3 +1,4 @@
+<!--Anzeige der Webcams mit Konfigurationmöglichkeit -->
 <?php
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
@@ -17,7 +18,10 @@ sec_session_start();
     <script src="scripts/kamera/kamera.js"></script>
 </head>
 <body>
-<?php if (login_check($mysqli) == true) : ?>
+<?php
+// Überprüfung Userlogin
+if (login_check($mysqli) == true) :
+    ?>
     <!-- Beginn Navbar-->
     <nav class="navbar navbar-default" id="navbar">
         <div class="container-fluid">
@@ -89,7 +93,6 @@ sec_session_start();
                 <p>Sensorknoten:</p>
                 <select class="form-control" id="kamera">
                     <option>Bitte Sensorknoten auswählen</option>
-                    <!--PHP FUNKTION FÜR OPTIONEN-->
                 </select>
             </div>
         </div>
@@ -101,13 +104,16 @@ sec_session_start();
         <div id="kameraanzeige" class="embed-responsive embed-responsive-16by9">
         </div>
     </div>
-
-<?php else : ?>
+    <?php
+// Meldung bei nicht eingeloggtem User
+else :
+    ?>
     <div id="loginerror">
         <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
         <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
     </div>
-<?php endif; ?>
-
+    <?php
+endif;
+?>
 </body>
 </html>
