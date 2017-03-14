@@ -7,21 +7,21 @@ if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
 }
-if($zeit == "Woche"){
+if ($zeit == "Woche") {
     $query = "Select Timestamp, Messwert from Sensorknoten SK
                                 inner join Sensorknoten_Messwerte as SM on (SK.KN_ID = SM.KN_ID)
                                 inner join Messwerte as M on (SM.MESS_ID = M.MESS_ID)
                                 inner join Sensoren as S on (M.SEN_ID = S.SEN_ID)
-                           WHERE Knotennamen = '".$sensorknoten."'
-                           AND Sensorname = '".$sensorname."';";
-}else{
+                           WHERE Knotennamen = '" . $sensorknoten . "'
+                           AND Sensorname = '" . $sensorname . "';";
+} else {
     $query = "Select Timestamp, Messwert from Sensorknoten SK
                                 inner join Sensorknoten_Messwerte as SM on (SK.KN_ID = SM.KN_ID)
                                 inner join Messwerte as M on (SM.MESS_ID = M.MESS_ID)
                                 inner join Sensoren as S on (M.SEN_ID = S.SEN_ID)
-                            WHERE Knotennamen = '".$sensorknoten."'
-                            AND Sensorname = '".$sensorname."'
-                            AND DATE(Timestamp) = DATE('".$zeit."');";
+                            WHERE Knotennamen = '" . $sensorknoten . "'
+                            AND Sensorname = '" . $sensorname . "'
+                            AND DATE(Timestamp) = DATE('" . $zeit . "');";
 }
 $result = $mysqli->query($query);
 $resultdata[] = array();

@@ -12,6 +12,7 @@ $(document).ready(function () {
         });
         chart.render();
     }
+
     // Erstellt den Inhalt des Dropdowns für die Sensorknotenauswahl
     $.post('scripts/statistik/sensorknotenauswahl.php', function (data) {
         data = JSON.parse(data);
@@ -57,7 +58,7 @@ $(document).ready(function () {
             sensor: Sensor,
             zeit: Zeit
         };
-        var plotData=[];
+        var plotData = [];
         switch (Sensor) {
             case "Temperatur":
                 Beschriftung = "Temperatur in [°C]";
@@ -90,7 +91,7 @@ $(document).ready(function () {
             // Stichprobentest, erste Position vom Array ist bisher 0, daher muss die 2. genommen werden
             if (data[1][1] == "TRUE" || data[1][1] == "FALSE") {
                 mode = "column";
-            }else{
+            } else {
                 mode = "splineArea"
             }
             for (var i = 0; i < data.length; i++) {
@@ -99,10 +100,10 @@ $(document).ready(function () {
                     data[i][1] = 1;
                 } else if (data[i][1] == "FALSE") {
                     data[i][1] = 0;
-                }else{
+                } else {
                     data[i][1] = parseFloat(data[i][1]);
                 }
-                plotData.push({x: data[i][0], y:data[i][1]})
+                plotData.push({x: data[i][0], y: data[i][1]})
             }
             zeichneGraph(plotData, mode, Beschriftung);
         });

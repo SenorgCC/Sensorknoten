@@ -11,12 +11,12 @@ $query = " Select * FROM(
 				    INNER JOIN Sensorknoten_Messwerte AS SM ON (SK.KN_ID = SM.KN_ID)
 				    INNER JOIN Messwerte AS M ON (SM.MESS_ID = M.MESS_ID)
 				    INNER JOIN Sensoren S ON (M.SEN_ID = M.MESS_ID)
-				WHERE Knotennamen = '".$sensorknoten."'
+				WHERE Knotennamen = '" . $sensorknoten . "'
 			)AS Stub ORDER BY Sensorname;";
 $result = $mysqli->query($query);
 $resultdata[] = array();
-while ($row = $result->fetch_assoc()){
-    array_push($resultdata,$row['Sensorname']);
+while ($row = $result->fetch_assoc()) {
+    array_push($resultdata, $row['Sensorname']);
 }
 echo json_encode($resultdata);
 $mysqli->close();

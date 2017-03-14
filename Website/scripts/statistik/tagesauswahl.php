@@ -11,7 +11,7 @@ $query = " Select DATE(Timestamp) AS Datum FROM(
 			    SELECT Timestamp from Sensorknoten SK
 				    INNER JOIN Sensorknoten_Messwerte AS SM ON (SK.KN_ID = SM.KN_ID)
 				    INNER JOIN Messwerte AS M ON (SM.MESS_ID = M.MESS_ID)
-				WHERE Knotennamen = '".$sensorknoten."'
+				WHERE Knotennamen = '" . $sensorknoten . "'
 			)AS STUB GROUP BY Datum;";
 $result = $mysqli->query($query);
 $resultdata[] = array();
