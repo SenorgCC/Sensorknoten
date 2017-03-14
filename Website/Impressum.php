@@ -1,7 +1,10 @@
+/*
+    Anzeige des Impressums mit integriertem Download der Dokumentation
+*/
 <?php
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
-
+// Start der Session
 sec_session_start();
 ?>
 
@@ -14,9 +17,9 @@ sec_session_start();
     <link rel="stylesheet" href="sources/bootstrap/css/bootstrap.css">
     <script src="sources/jquery-3.1.1.min.js"></script>
     <script src="sources/bootstrap/js/bootstrap.js"></script>
-
 </head>
 <body>
+// Überprüfung Userlogin
 <?php if (login_check($mysqli) == true) : ?>
     <!-- Beginn Navbar-->
     <nav class="navbar navbar-default" id="navbar">
@@ -32,7 +35,6 @@ sec_session_start();
                 </button>
                 <a class="navbar-brand" href="Uebersicht.php">Sensorübersicht</a>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <!-- Linke Seite der Navbar -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -60,13 +62,12 @@ sec_session_start();
         <a id="impressuminhalt" class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download der
             Dokumentation</a>
     </div>
-
+// Meldung bei nicht eingeloggtem User
 <?php else : ?>
     <div id="loginerror">
         <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
         <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
     </div>
 <?php endif; ?>
-
 </body>
 </html>
