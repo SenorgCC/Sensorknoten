@@ -1,6 +1,4 @@
-/*
-    Anzeige des Impressums mit integriertem Download der Dokumentation
-*/
+<!--Anzeige des Impressums mit integriertem Download der Dokumentation-->
 <?php
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
