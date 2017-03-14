@@ -1,3 +1,4 @@
+<!-- Anzeige Erfolgreiche Registrierung -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
