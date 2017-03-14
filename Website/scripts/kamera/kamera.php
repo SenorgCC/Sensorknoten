@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jan
- * Date: 10.03.2017
- * Time: 15:06
- */
+//Selektiert Sensorknoten die eine Webcam besitzen
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
@@ -17,7 +12,6 @@ $i = 0;
 while ($row = $result->fetch_assoc()) {
     array_push($resultdata, $row['Knotennamen']);
 }
-
 echo json_encode($resultdata);
 $mysqli->close();
 ?>
