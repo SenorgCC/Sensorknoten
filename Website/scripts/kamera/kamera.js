@@ -28,6 +28,7 @@ $(document).ready(function () {
             data = JSON.parse(data);
             var IP_Adresse = JSON.stringify(data[1]);
             $('#kameraanzeige').empty();
+            var text="http://"+IP_Adresse+":8081";
             $('#kameraanzeige').append('<iframe src="http://'+IP_Adresse+':8081" class="embed-responsive-item">' +
                 '</iframe>'
             );
