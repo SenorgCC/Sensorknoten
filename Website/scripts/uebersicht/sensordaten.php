@@ -1,6 +1,7 @@
 <?php
 // Dynamische Generierung der Sensorübersicht
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+include_once "../../scripts/login/psl-config.php";
+@$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen 
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;

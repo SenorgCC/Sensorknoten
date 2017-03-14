@@ -9,3 +9,4 @@ define("DATABASE", "Sicherheitssystem");    // Der Datenbankname.
 define("CAN_REGISTER", "any");
 define("DEFAULT_ROLE", "member");
 define("SECURE", FALSE);    // NUR FÜR DIE ENTWICKLUNG!!!!
+?>

@@ -1,7 +1,8 @@
 <?php
 // Selektiert alle verfügbaren Tage
+include_once "../../scripts/login/psl-config.php";
 $sensorknoten = $_POST['name'];
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+@$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;

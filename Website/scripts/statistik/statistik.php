@@ -1,12 +1,15 @@
 <?php
+// Messdaten für die Anzeige des Graphens
+include_once "../../scripts/login/psl-config.php";
 $sensorknoten = $_POST['sensorknoten'];
 $sensorname = $_POST['sensor'];
 $zeit = $_POST['zeit'];
-@$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
+@$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 if ($mysqli->connect_errno) {
     echo 'Sorry, die Verbindung zu unserem superfetten endgeilen
         Server ist hops gegangen. Wegen ' . $mysqli->connect_error;
 }
+// Selektiert entweder Woche | Tag in Abhängigkeit des Sensorknotens und Sensors
 if ($zeit == "Woche") {
     $query = "Select Timestamp, Messwert from Sensorknoten SK
                                 inner join Sensorknoten_Messwerte as SM on (SK.KN_ID = SM.KN_ID)
