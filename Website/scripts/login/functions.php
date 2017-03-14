@@ -1,6 +1,5 @@
 <?php
 include_once 'psl-config.php';
-
 //Start der Session
 function sec_session_start() {
     $session_name = 'sec_session_id';   // vergib einen Sessionnamen
@@ -34,17 +33,14 @@ function login($email, $password, $mysqli) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
         $stmt->execute();    // Führe die vorbereitete Anfrage aus.
         $stmt->store_result();
-
         // hole Variablen von result.
         $stmt->bind_result($user_id, $username, $db_password, $salt);
         $stmt->fetch();
-
         // hash das Passwort mit dem eindeutigen salt.
         $password = hash('sha512', $password . $salt);
         if ($stmt->num_rows == 1) {
             // Wenn es den Benutzer gibt, dann wird überprüft ob das Konto
             // blockiert ist durch zu viele Login-Versuche
-
             if (checkbrute($user_id, $mysqli) == true) {
                 // Konto ist blockiert
                 // Schicke E-Mail an Benutzer, dass Konto blockiert ist
@@ -84,24 +80,19 @@ function login($email, $password, $mysqli) {
     }
 }
 //Brute-Force
-
 function checkbrute($user_id, $mysqli) {
     // Hole den aktuellen Zeitstempel
     $now = time();
-
     // Alle Login-Versuche der letzten zwei Stunden werden gezählt.
     $valid_attempts = $now - (2 * 60 * 60);
-
     if ($stmt = $mysqli->prepare("SELECT time 
                              FROM login_attempts <code><pre>
                              WHERE user_id = ? 
                             AND time > '$valid_attempts'")) {
         $stmt->bind_param('i', $user_id);
-
         // Führe die vorbereitet Abfrage aus.
         $stmt->execute();
         $stmt->store_result();
-
         // Wenn es mehr als 5 fehlgeschlagene Versuche gab
         if ($stmt->num_rows > 5) {
             return true;
@@ -110,22 +101,17 @@ function checkbrute($user_id, $mysqli) {
         }
     }
 }
-
 //Logincheck
-
 function login_check($mysqli) {
     // Überprüfe, ob alle Session-Variablen gesetzt sind
     if (isset($_SESSION['user_id'],
         $_SESSION['username'],
         $_SESSION['login_string'])) {
-
         $user_id = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
         $username = $_SESSION['username'];
-
         // Hole den user-agent string des Benutzers.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
-
         if ($stmt = $mysqli->prepare("SELECT password 
                                       FROM members 
                                       WHERE id = ? LIMIT 1")) {
@@ -133,13 +119,11 @@ function login_check($mysqli) {
             $stmt->bind_param('i', $user_id);
             $stmt->execute();   // Execute the prepared query.
             $stmt->store_result();
-
             if ($stmt->num_rows == 1) {
                 // Wenn es den Benutzer gibt, hole die Variablen von result.
                 $stmt->bind_result($password);
                 $stmt->fetch();
                 $login_check = hash('sha512', $password . $user_browser);
-
                 if ($login_check == $login_string) {
                     // Eingeloggt!!!!
                     return true;
@@ -160,32 +144,22 @@ function login_check($mysqli) {
         return false;
     }
 }
-
 //Bereinigen der PHP-Self-Variable (gegen Cross-Site-Scripting
-
 function esc_url($url) {
-
     if ('' == $url) {
         return $url;
     }
-
     $url = preg_replace('|[^a-z0-9-~+_.?#=!&;,/:%@$\|*\'()\\x80-\\xff]|i', '', $url);
-
     $strip = array('%0d', '%0a', '%0D', '%0A');
     $url = (string) $url;
-
     $count = 1;
     while ($count) {
         $url = str_replace($strip, '', $url, $count);
     }
-
     $url = str_replace(';//', '://', $url);
-
     $url = htmlentities($url);
-
     $url = str_replace('&amp;', '&#038;', $url);
     $url = str_replace("'", '&#039;', $url);
-
     if ($url[0] !== '/') {
         // Wir wollen nur relative Links von $_SERVER['PHP_SELF']
         return '';
