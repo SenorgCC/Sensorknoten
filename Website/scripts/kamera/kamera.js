@@ -26,7 +26,7 @@ $(document).ready(function () {
         $.post('scripts/kamera/kameraadresse.php', sendedata, function (data) {
             //Der Post liefert ein Array, an dem die erste Stelle null ist, in der 2. ist der echte Wert
             data = JSON.parse(data);
-            var IP_Adresse = JSON.stringify(data[1]);
+            var IP_Adresse = data[1];
             $('#kameraanzeige').empty();
             var text="http://"+IP_Adresse+":8081";
             $('#kameraanzeige').append('<iframe src="http://'+IP_Adresse+':8081" class="embed-responsive-item">' +
