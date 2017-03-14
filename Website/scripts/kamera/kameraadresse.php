@@ -1,4 +1,5 @@
 <?php
+// Selektiert die IP-Adresse der Kamera
 $sensorknoten = $_POST['sensorknoten'];
 @$mysqli = new mysqli('localhost', 'root', 'Piroot', 'Sicherheitssystem');
 if ($mysqli->connect_errno) {
