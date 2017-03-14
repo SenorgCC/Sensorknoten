@@ -1,7 +1,7 @@
 <?php
 include_once 'scripts/login/db-connect.php';
 include_once 'scripts/login/functions.php';
-
+//Start der Session
 sec_session_start();
 ?>
 

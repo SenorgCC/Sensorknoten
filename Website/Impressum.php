@@ -19,8 +19,10 @@ sec_session_start();
     <script src="sources/bootstrap/js/bootstrap.js"></script>
 </head>
 <body>
-// Überprüfung Userlogin
-<?php if (login_check($mysqli) == true) : ?>
+<?php
+    // Überprüfung Userlogin
+    if (login_check($mysqli) == true) :
+?>
     <!-- Beginn Navbar-->
     <nav class="navbar navbar-default" id="navbar">
         <div class="container-fluid">
@@ -62,12 +64,16 @@ sec_session_start();
         <a id="impressuminhalt" class="btn btn-lg btn-primary btn-block" href="Dokumentation.pdf">Download der
             Dokumentation</a>
     </div>
-// Meldung bei nicht eingeloggtem User
-<?php else : ?>
+<?php
+    // Meldung bei nicht eingeloggtem User
+    else :
+?>
     <div id="loginerror">
         <h2>Bitte loggen Sie sich zuerst ein</h2> <br>
         <a class="btn btn-lg btn-primary btn-block" href="Login.php">Zur Loginseite</a>.
     </div>
-<?php endif; ?>
+<?php
+    endif;
+?>
 </body>
 </html>
