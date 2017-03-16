@@ -33,15 +33,15 @@ while True:
             cur.execute("""UPDATE Sensorknoten SET IPv4_Adresse = %s WHERE Knotennamen = %s""", (adresse, Name))
             cur.execute("""INSERT INTO Messwerte (SEN_ID, Messwert)VALUES(%s, %s)""", (SEN_ID, Wert))
             # Die zuletzt erstellte ID wird übergeben
-            MessID = cur.insert_id()
+            MessID = cur.lastrowid
             cur.execute("""INSERT INTO Sensorknoten_Messwerte (KN_ID, MESS_ID)VALUES(%s, %s)""", (KN_ID, MessID))
         # Wenn kein Datenbankeintrag gefunden wird, wird ein neuer Datenbankeintrag erstellt
         elif row_count == 0:
             cur.execute("""INSERT INTO Sensorknoten (Knotennamen, IPv4_Adresse)VALUES(%s, %s)""", (Name, adresse))
             # Die zuletzt erstellte ID wird übergeben
-            KN_ID = cur.insert_id()
+            KN_ID = cur.lastrowid
             cur.execute("""INSERT INTO Messwerte (SEN_ID, Messwert)VALUES(%s, %s)""", (SEN_ID, Wert))
             # Die zuletzt erstellte ID wird übergeben
-            MessID = cur.insert_id()
+            MessID = cur.lastrowid
             cur.execute("""INSERT INTO Sensorknoten_Messwerte (KN_ID, MESS_ID)VALUES(%s, %s)""", (KN_ID, MessID))
     con.close()
