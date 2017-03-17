@@ -35,23 +35,33 @@ ORDER BY SEN_ID";
     // Auswertung und Zuteilung der Sensordaten
     while ($row2 = $result2->fetch_object()) {
         if ($row2->SEN_ID == '1') {
-            $Temperatur = $row2->Messwert . "°C";
-            $timestamp[1] = $row2->Timestamp;
+            if ($row2->Messwert !== '0') {
+                $Temperatur = $row2->Messwert . "°C";
+                $timestamp[1] = $row2->Timestamp;
+            }
         } else if ($row2->SEN_ID == '2') {
-            $Luftfeuchtigkeit = $row2->Messwert . "%";
-            $timestamp[2] = $row2->Timestamp;
+            if ($row2->Messwert !== '0') {
+                $Luftfeuchtigkeit = $row2->Messwert . "%";
+                $timestamp[2] = $row2->Timestamp;
+            }
         } else if ($row2->SEN_ID == '3') {
-            $Flammsensor = $row2->Messwert;
-            $timestamp[3] = $row2->Timestamp;
+            if ($row2->Messwert !== '0') {
+                $Flammsensor = $row2->Messwert;
+                $timestamp[3] = $row2->Timestamp;
+            }
         } else if ($row2->SEN_ID == '4') {
             $Lichtschranke = $row2->Messwert;
             $timestamp[4] = $row2->Timestamp;
         } else if ($row2->SEN_ID == '5') {
-            $Mikrofon = $row2->Messwert;
-            $timestamp[5] = $row2->Timestamp;
+            if ($row2->Messwert !== '0') {
+                $Mikrofon = $row2->Messwert;
+                $timestamp[5] = $row2->Timestamp;
+            }
         } else if ($row2->SEN_ID == '6') {
-            $Lichtsensor = $row2->Messwert;
-            $timestamp[6] = $row2->Timestamp;
+            if ($row2->Messwert !== '0') {
+                $Lichtsensor = $row2->Messwert;
+                $timestamp[6] = $row2->Timestamp;
+            }
         } else if ($row2->SEN_ID == '7') {
             $Schocksensor = $row2->Messwert;
             $timestamp[7] = $row2->Timestamp;
