@@ -26,7 +26,8 @@ class Sensor:
         self.Digital_PIN = Digital_PIN
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
+        if Digital_PIN:
+            GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
         # Umsetzung mit dem pcf8591 AD-Wandler
         self.bus = smbus.SMBus(1)
         self.address = 0x48
@@ -81,12 +82,14 @@ class Sensor:
             self.senden(json_data)
 
     def sensorcheck_analog(self):
-        self.bus.write_byte(self.address, self.Analog_PIN)
-        if self.bus.read_byte(self.address) > 0:
-            return True
-        else:
+        try :
+            self.bus.write_byte(self.address, self.Analog_PIN)
+            if self.bus.read_byte(self.address) > 0:
+                return True
+            else:
+                return False
+        except IOError:
             return False
-
     def flammensensor(self):
         if self.sensorcheck_analog():
             self.Status = 1
