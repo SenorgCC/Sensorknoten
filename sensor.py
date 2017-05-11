@@ -26,7 +26,8 @@ class Sensor:
         self.Digital_PIN = Digital_PIN
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
+        if Digital_PIN:
+            GPIO.setup(self.Digital_PIN, GPIO.IN, pull_up_down=GPIO.PUD_OFF)
         # Umsetzung mit dem pcf8591 AD-Wandler
         self.bus = smbus.SMBus(1)
         self.address = 0x48
@@ -55,8 +56,7 @@ class Sensor:
         Analog_Wert = self.bus.read_byte(self.address)
         Digital_Wert = GPIO.input(self.Digital_PIN)
         if Digital_Wert == 1:
-            #TODO: Kalibrierung
-            if Analog_Wert < 200:
+            if Analog_Wert < 255:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -82,13 +82,14 @@ class Sensor:
             self.senden(json_data)
 
     def sensorcheck_analog(self):
-        self.bus.write_byte(self.address, self.Analog_PIN)
-        # TODO: Kalibrierung
-        if self.bus.read_byte(self.address) > 10:
-            return True
-        else:
+        try :
+            self.bus.write_byte(self.address, self.Analog_PIN)
+            if self.bus.read_byte(self.address) > 0:
+                return True
+            else:
+                return False
+        except IOError:
             return False
-
     def flammensensor(self):
         if self.sensorcheck_analog():
             self.Status = 1
@@ -96,8 +97,7 @@ class Sensor:
             Analog_Wert = self.bus.read_byte(self.address)
             Digital_Wert = GPIO.input(self.Digital_PIN)
 
-            # TODO: Kalibrierung
-            if Digital_Wert == 1 and Analog_Wert < 200:
+            if Digital_Wert == 1 and Analog_Wert < 255:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -177,8 +177,7 @@ class Sensor:
             analog_wert = self.bus.read_byte(self.address)
 
             Digital_Wert = GPIO.input(self.Digital_PIN)
-            # TODO: Kalibrierung
-            if Digital_Wert == 1 and analog_wert < 200:
+            if Digital_Wert == 1 and analog_wert < 255:
                 sensor_information = {"Name": self.Sensorname,
                                       "SEN_ID": self.SEN_ID,
                                       "Status": self.Status,
@@ -213,16 +212,12 @@ class Sensor:
         if self.sensorcheck_analog():
             self.bus.write_byte(self.address, self.Analog_PIN)
             analog_wert = self.bus.read_byte(self.address)
-            # TODO: Kalibrierung
-            if analog_wert <= 50:
+            if 20 < analog_wert <= 145:
                 self.Messwert = "TRUE"
                 self.Status = 1
-            elif analog_wert > 51:
+            else:
                 self.Messwert = "FALSE"
                 self.Status = 1
-            else:
-                self.Messwert = 0
-                self.Status = 2
 
             sensor_information = {"Name": self.Sensorname,
                                   "SEN_ID": self.SEN_ID,
@@ -231,6 +226,15 @@ class Sensor:
             json_data = json.dumps(sensor_information)
             self.senden(json_data)
         else:
+            self.Messwert = 0
+            self.Status = 2
+            sensor_information = {"Name": self.Sensorname,
+                                  "SEN_ID": self.SEN_ID,
+                                  "Status": self.Status,
+                                  "Messwert": self.Messwert}
+            json_data = json.dumps(sensor_information)
+            self.senden(json_data)
+
             return
 
     def lichtschranke(self):
